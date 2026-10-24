@@ -1,11 +1,12 @@
 
 {
   "name": "anon-chat-pro",
-  "version": "1.0.0",
-  "description": "Chat público em tempo real",
-  "main": "server.js",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Chat anônimo em tempo real com Node.js e WebSocket",
+  "main": "servidor.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node servidor.js"
   },
   "engines": {
     "node": ">=20"
