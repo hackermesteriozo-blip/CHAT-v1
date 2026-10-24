@@ -1,213 +1,1196 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080910">
-<title>ANON CHAT PRO</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-:root{color-scheme:dark;--bg:#080910;--panel:#121523;--line:#aab2d522;--muted:#939bb6;--purple:#9a7bff;--green:#4be0ae;--red:#ff788b}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 15% -10%,#2a2058 0,transparent 38%),radial-gradient(ellipse at 100% 70%,#172144 0,transparent 34%),var(--bg);color:#f5f6ff;font:14px 'DM Sans',sans-serif}
-button,input{font:inherit}button{cursor:pointer}
-button:focus-visible,input:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
-[hidden]{display:none!important}
-.shell{max-width:1400px;margin:auto;padding:0 26px 25px}
-.top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-.brandrow{display:flex;align-items:center;gap:12px}
-.logo{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(140deg,#b69dff,#6244e7);font:700 23px 'Space Grotesk';box-shadow:0 8px 30px #7959e944}
-.brand{font:700 20px 'Space Grotesk'}.brand span{color:#b8a3ff}
-.sub{color:var(--muted);font-size:10px;letter-spacing:1px;margin-top:3px}
-.topright{display:flex;align-items:center;gap:9px}
-.pill{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:9px 12px;color:var(--muted);font-size:11px}
-.dot{width:7px;height:7px;background:#f0c36b;border-radius:50%}
-.pill.online{color:#b8f7df;border-color:#4be0ae44}.pill.online .dot{background:var(--green)}
-.iconbtn{width:39px;height:39px;border:1px solid var(--line);border-radius:12px;background:#ffffff06;color:#ddd}
-.hero{display:flex;align-items:end;justify-content:space-between;gap:18px;padding:34px 0 25px}
-.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#b8a4ff;font-weight:700}
-.hero h1{font:600 clamp(28px,4vw,42px)/1.12 'Space Grotesk';letter-spacing:-1.5px;margin:9px 0}
-.hero h1 span{color:#b49cff}.hero p{margin:0;color:var(--muted);line-height:1.7}
-.tag{padding:10px 13px;border-radius:12px;border:1px solid #9a7bff30;background:#9a7bff12;color:#cbbdff;white-space:nowrap}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:17px}
-.panel{min-width:0;border:1px solid var(--line);border-radius:21px;overflow:hidden;background:linear-gradient(150deg,#151827f7,#0e111df7);box-shadow:0 25px 80px #0003}
-.chat{display:flex;flex-direction:column;min-height:640px}
-.panelhead{min-height:73px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}
-.headleft{display:flex;align-items:center;gap:10px}
-.roomicon{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:#9a7bff18;color:#c8b8ff;font-size:18px}
-.panelhead h2{font-size:13px;margin:0}.panelhead p{font-size:10px;color:var(--muted);margin:4px 0 0}
-.search{width:150px;min-width:0;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:#0b0e18;color:white}
-.messages{height:445px;overflow:auto;padding:21px;display:flex;flex-direction:column;gap:15px}
-.welcome{margin:auto;text-align:center;max-width:370px;padding:25px;border:1px dashed #aab2d533;border-radius:20px;color:var(--muted)}
-.welcomeicon{width:55px;height:55px;margin:0 auto 14px;display:grid;place-items:center;border-radius:18px;background:#9a7bff19;font-size:25px}
-.welcome strong{display:block;font:600 19px 'Space Grotesk';color:#fff;margin-bottom:7px}
-.welcome p{font-size:12px;line-height:1.7;margin:0}
-.msg{display:flex;gap:9px;align-items:flex-end;max-width:90%;align-self:flex-start}
-.msg.mine{align-self:flex-end;flex-direction:row-reverse}
-.avatar{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;border-radius:11px;background:#30264f;color:#d9ceff;font-weight:700}
-.mine .avatar{background:#174b45;color:#bdf8e2}
-.content{min-width:0}.meta{display:flex;align-items:center;gap:7px;margin:0 4px 5px}
-.name{font-size:11px;color:#c8baff;font-weight:700}.mine .name{color:#8aebcb}
-.badge{font-size:9px;color:#ffe4a3;background:#a8751c25;border:1px solid #f1c56a44;border-radius:5px;padding:2px 5px}
-.time{font-size:10px;color:#7e86a1}
-.bubble{white-space:pre-wrap;overflow-wrap:anywhere;background:#1a1e2e;border:1px solid #abb3d51a;border-radius:5px 15px 15px 15px;padding:11px 14px;line-height:1.55}
-.mine .bubble{background:linear-gradient(135deg,#4e3c91,#382e70);border-radius:15px 5px 15px 15px}
-.sys{align-self:center;text-align:center;border:1px solid #abb3d514;background:#ffffff05;color:#8e96b0;padding:6px 11px;border-radius:99px;font-size:10px}
-.compose{padding:14px 17px 16px;border-top:1px solid var(--line)}
-.formline{display:flex;gap:9px}.field{flex:1;min-width:0;position:relative}
-.field input,.login input{width:100%;padding:13px 14px;border:1px solid #abb3d52a;border-radius:13px;background:#0b0e18;color:#fff}
-.field input{padding-right:42px}
-.emoji{position:absolute;right:7px;top:50%;transform:translateY(-50%);background:none;border:0;color:#a9b0c9;font-size:19px}
-.send,.primary{border:0;border-radius:13px;padding:13px 17px;background:linear-gradient(130deg,#9a7bff,#6244e7);color:#fff;font-weight:700}
-.composefoot{display:flex;justify-content:space-between;color:#737b95;font-size:10px;margin-top:9px}
-.error{min-height:14px;margin-top:7px;color:var(--red);font-size:11px}
-.sidebar{display:flex;flex-direction:column}
-.count{min-width:28px;padding:5px 8px;text-align:center;border-radius:9px;background:#9a7bff1e;color:#c7b9ff;font-size:11px}
-.usersearch{padding:12px 14px 3px}
-.usersearch input{width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:#0b0e18;color:#fff}
-#users{padding:6px 14px 14px;max-height:340px;overflow:auto}
-.userrow{display:flex;align-items:center;gap:8px;padding:10px 5px;border-bottom:1px solid #abb3d510}
-.uavatar{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#30264f;color:#d9ceff;flex-shrink:0}
-.uinfo{flex:1;min-width:0}.uname{font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ustatus{font-size:10px;color:var(--muted);margin-top:3px}
-.you{font-size:9px;color:#c9baff;background:#9a7bff20;border-radius:5px;padding:3px}
-.kick{font-size:10px;padding:5px 7px;border:1px solid #ff788b44;color:#ff9aa8;background:#ff788b0d;border-radius:7px}
-.empty{text-align:center;padding:18px 5px;color:var(--muted);font-size:11px}
-.divider{height:1px;background:var(--line);margin:0 15px}
-.info{margin:14px;padding:14px;border:1px solid #9a7bff25;border-radius:14px;background:#9a7bff0c}
-.info strong{display:block;font-size:12px;margin-bottom:7px}
-.info p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 14px 14px}
-.stat{border:1px solid var(--line);border-radius:12px;padding:11px;background:#ffffff04}
-.stat label{display:block;font-size:10px;color:var(--muted)}
-.stat b{display:block;font:600 15px 'Space Grotesk';margin-top:4px}
-.footer{display:flex;justify-content:space-between;gap:15px;padding:20px 3px 0;color:#737b95;font-size:10px}
-.overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:18px;background:#05060ddc;backdrop-filter:blur(17px)}
-.login{width:min(460px,100%);padding:31px;position:relative;overflow:hidden;border-radius:25px;border:1px solid #a99aff35;background:linear-gradient(155deg,#171a2b,#10121f 78%);box-shadow:0 35px 110px #0009}
-.login:before{content:"";position:absolute;top:-150px;right:-80px;width:250px;height:250px;border-radius:50%;background:#9a7bff25;filter:blur(30px);pointer-events:none}
-.loginlogo{width:57px;height:57px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(140deg,#b49aff,#6846e8);font:700 25px 'Space Grotesk';margin-bottom:22px}
-.login h2{font:600 29px 'Space Grotesk';letter-spacing:-.8px;margin:10px 0}
-.login p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:22px}
-.label{display:block;font-size:10px;letter-spacing:1px;font-weight:700;color:#d5d8e9;margin-bottom:8px}
-.login input{margin-bottom:13px}
-.founder-toggle{display:flex;align-items:center;gap:9px;color:#b7bed5;font-size:11px;margin-bottom:12px;cursor:pointer}
-.founder-toggle input{width:auto;margin:0;accent-color:#9a7bff}
-.login .primary{width:100%;padding:14px}
-.login-note{display:flex;gap:9px;margin-top:18px;padding-top:15px;border-top:1px solid var(--line);font-size:10px;line-height:1.6;color:#838ba5}
-.toastregion{position:fixed;right:18px;bottom:18px;z-index:30;display:grid;gap:8px}
-.toast{max-width:340px;background:#1b2031;border:1px solid var(--line);border-radius:12px;padding:12px 15px;box-shadow:0 15px 45px #0006;font-size:12px}
-.toast.bad{border-color:#ff788b66}
-@media(min-width:1000px){.messages{flex:1;min-height:400px;height:auto;max-height:590px}}
-@media(max-width:900px){.shell{padding:0 16px 22px}.grid{grid-template-columns:minmax(0,1fr) 255px}.search{width:120px}}
-@media(max-width:700px){.shell{padding:0 11px 20px}.top{height:68px}.brand{font-size:17px}.logo{width:38px;height:38px}.sub,.privacy{display:none}.hero{display:block;padding:25px 2px 20px}.hero h1{font-size:30px}.tag{display:inline-block;margin-top:15px}.grid{grid-template-columns:1fr}.chat{min-height:0}.panelhead{padding:12px}.roomicon{width:34px;height:34px}.search{width:100px;padding:8px}.messages{height:47vh;min-height:300px;padding:15px 10px}.msg{max-width:96%;gap:7px}.avatar{width:28px;height:28px}.bubble{font-size:13px;padding:10px 12px}.compose{padding:12px}.send{width:44px;padding:0}.send span:last-child{display:none}.field input{padding:12px 40px 12px 12px}.sidebar{order:2}#users{max-height:250px;display:grid;grid-template-columns:1fr 1fr;gap:2px}.footer{flex-direction:column;gap:7px}.login{padding:26px 21px}}
-@media(max-width:380px){.search{width:84px}.headleft{gap:7px}#users{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="ANON CHAT PRO — converse em tempo real com pessoas de forma anônima.">
+  <title>ANON CHAT PRO — Chat Anônimo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b14;
+      --panel: #101522;
+      --panel2: #141b2b;
+      --border: rgba(153, 170, 208, .15);
+      --text: #f3f5ff;
+      --muted: #8994ad;
+      --purple: #9270ff;
+      --cyan: #56e5ff;
+      --green: #5cf0b0;
+      --red: #ff6685;
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; min-height: 100%; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(106, 74, 255, .16), transparent 42%),
+        radial-gradient(ellipse at 100% 35%, rgba(36, 177, 226, .09), transparent 35%),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    button:focus-visible, input:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .app { max-width: 1440px; padding: 22px; margin: auto; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 15px 19px;
+      border: 1px solid var(--border);
+      background: rgba(15, 20, 34, .84);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      margin-bottom: 22px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 23px;
+      background: linear-gradient(135deg, #9977ff, #4bcef4);
+      box-shadow: 0 0 28px rgba(131, 105, 255, .23);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font: 700 19px "Space Grotesk", sans-serif;
+      letter-spacing: .4px;
+    }
+
+    .brand p { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #778197;
+    }
+
+    .dot.online { background: var(--green); box-shadow: 0 0 12px #5cf0b088; }
+    .dot.connecting { background: #ffc857; }
+
+    .button {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: var(--text);
+      background: #1a2132;
+      transition: .2s ease;
+    }
+
+    .button:hover { transform: translateY(-1px); filter: brightness(1.12); }
+
+    .button.primary {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(110deg, #7757ed, #5579f4);
+      box-shadow: 0 7px 24px #7658ed26;
+    }
+
+    .button.danger {
+      color: #ff9aad;
+      background: #ff668510;
+      border-color: #ff66852a;
+    }
+
+    .button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 26px 4px 22px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .hero h2 {
+      font: 700 clamp(25px, 4vw, 37px) "Space Grotesk", sans-serif;
+      margin: 9px 0;
+      letter-spacing: -1.2px;
+    }
+
+    .hero p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .badge {
+      border: 1px solid #9270ff35;
+      background: #9270ff10;
+      color: #c3b3ff;
+      padding: 10px 13px;
+      border-radius: 12px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: rgba(15, 20, 33, .88);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-width: 0;
+      box-shadow: 0 18px 70px #00000018;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 72px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #ffffff03;
+    }
+
+    .panel-title { display: flex; align-items: center; gap: 11px; }
+    .panel-title .symbol { font-size: 21px; }
+    .panel-title h3 { margin: 0; font-size: 14px; font-weight: 700; }
+    .panel-title p { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
+
+    .count {
+      min-width: 29px;
+      padding: 6px 9px;
+      border-radius: 9px;
+      text-align: center;
+      font-size: 12px;
+      color: #c7baff;
+      background: #9270ff18;
+      border: 1px solid #9270ff26;
+    }
+
+    .chat-panel { display: flex; flex-direction: column; min-height: 590px; }
+
+    .chat-toolbar {
+      display: flex;
+      gap: 10px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search {
+      min-width: 0;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 11px;
+      color: var(--text);
+      background: #080d18;
+      border: 1px solid var(--border);
+      outline: none;
+      font-size: 12px;
+    }
+
+    .messages {
+      flex: 1;
+      min-height: 360px;
+      max-height: 570px;
+      overflow-y: auto;
+      padding: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .messages::-webkit-scrollbar, .participants::-webkit-scrollbar { width: 5px; }
+    .messages::-webkit-scrollbar-thumb, .participants::-webkit-scrollbar-thumb {
+      background: #ffffff20;
+      border-radius: 9px;
+    }
+
+    .welcome-card {
+      text-align: center;
+      padding: 30px 14px;
+      margin: 5px 0 20px;
+      border: 1px dashed #9270ff36;
+      background: linear-gradient(135deg, #9270ff0b, #56e5ff06);
+      border-radius: 17px;
+    }
+
+    .welcome-icon { font-size: 34px; }
+    .welcome-card h3 { margin: 12px 0 7px; font-size: 15px; }
+    .welcome-card p { color: var(--muted); font-size: 12px; line-height: 1.8; margin: 0; }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin: 0 0 19px;
+      animation: appear .22s ease both;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      background: linear-gradient(135deg, #7459df, #3286b9);
+    }
+
+    .message-body { min-width: 0; flex: 1; }
+    .message-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 2px 0 7px; }
+    .message-name { font-size: 12px; font-weight: 800; }
+    .message-time { font-size: 10px; color: #69758e; }
+
+    .founder-tag {
+      color: #c3b2ff;
+      background: #9270ff18;
+      border: 1px solid #9270ff2d;
+      border-radius: 5px;
+      font-size: 9px;
+      padding: 3px 6px;
+      letter-spacing: .3px;
+    }
+
+    .bubble {
+      width: fit-content;
+      max-width: 100%;
+      padding: 11px 13px;
+      border-radius: 4px 13px 13px 13px;
+      border: 1px solid #ffffff0b;
+      background: #ffffff07;
+      color: #dfe5f6;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    .message.system {
+      justify-content: center;
+      margin: 16px 0;
+    }
+
+    .system-text {
+      max-width: 100%;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      background: #ffffff04;
+      color: #9ba6bd;
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.6;
+      border-radius: 10px;
+    }
+
+    .composer {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: #ffffff02;
+    }
+
+    .composer-row { display: flex; gap: 10px; align-items: center; }
+
+    .message-input {
+      width: 100%;
+      min-width: 0;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      outline: none;
+      color: var(--text);
+      background: #080d18;
+      font-size: 13px;
+    }
+
+    .message-input:focus, .search:focus { border-color: #9270ff75; }
+    .composer-note { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; color: #68748d; font-size: 10px; }
+
+    .sidebar { display: flex; flex-direction: column; gap: 18px; }
+
+    .participants { padding: 12px; max-height: 370px; overflow-y: auto; }
+
+    .participant {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 8px;
+      border-bottom: 1px solid #ffffff08;
+      border-radius: 10px;
+    }
+
+    .participant:last-child { border-bottom: 0; }
+    .participant .avatar { width: 33px; height: 33px; border-radius: 11px; }
+    .participant-info { flex: 1; min-width: 0; }
+    .participant-name { overflow-wrap: anywhere; font-size: 12px; font-weight: 700; }
+    .participant-state { display: flex; align-items: center; gap: 5px; margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .participant-state .dot { width: 6px; height: 6px; }
+    .kick-button { padding: 7px 8px; border-radius: 8px; font-size: 10px; }
+
+    .empty { padding: 24px 10px; color: var(--muted); text-align: center; font-size: 12px; line-height: 1.8; }
+
+    .info-content { padding: 18px; }
+    .info-row { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 17px; }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-icon { width: 35px; height: 35px; flex-shrink: 0; display: grid; place-items: center; border-radius: 11px; background: #9270ff13; }
+    .info-row h4 { margin: 2px 0 5px; font-size: 12px; }
+    .info-row p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+
+    .footer { padding: 25px 5px 8px; text-align: center; color: #67728a; font-size: 11px; line-height: 1.8; }
+    .footer strong { color: #9f91e9; }
+
+    .overlay {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(3, 5, 12, .83);
+      backdrop-filter: blur(12px);
+    }
+
+    .overlay.hidden { display: none; }
+
+    .modal {
+      width: min(100%, 430px);
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid #9270ff35;
+      background: #101522;
+      box-shadow: 0 25px 100px #0008;
+      animation: appear .25s ease;
+    }
+
+    .modal-logo {
+      width: 57px;
+      height: 57px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      font-size: 28px;
+      background: linear-gradient(135deg, #9977ff, #4bcef4);
+    }
+
+    .modal h2 { margin: 0 0 9px; font: 700 25px "Space Grotesk", sans-serif; }
+    .modal > p { margin: 0 0 23px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .field { display: block; margin-bottom: 16px; }
+    .field span { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700; color: #b6bfd3; }
+    .field input { width: 100%; padding: 13px 14px; border: 1px solid var(--border); border-radius: 12px; color: white; background: #090e19; outline: none; }
+    .field input:focus { border-color: #9270ff88; }
+    .modal .button { width: 100%; padding: 13px; font-weight: 700; }
+    .modal-note { text-align: center; color: #75819a; font-size: 10px; margin-top: 16px; line-height: 1.7; }
+
+    .toast {
+      position: fixed;
+      z-index: 20;
+      right: 20px;
+      bottom: 20px;
+      max-width: min(390px, calc(100vw - 40px));
+      padding: 13px 17px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: #171e2e;
+      color: var(--text);
+      box-shadow: 0 12px 40px #0006;
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; }
+      .app { padding: 15px; }
+    }
+
+    @media (max-width: 700px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero { align-items: flex-start; }
+      .badge { display: none; }
+      .sidebar { display: grid; grid-template-columns: 1fr; }
+      .participants { max-height: 240px; }
+      .chat-panel { min-height: 540px; }
+      .messages { min-height: 300px; max-height: 55vh; }
+    }
+
+    @media (max-width: 460px) {
+      .app { padding: 10px; }
+      .topbar { padding: 12px; margin-bottom: 18px; }
+      .brand { gap: 9px; }
+      .logo { width: 39px; height: 39px; border-radius: 12px; font-size: 20px; }
+      .brand h1 { font-size: 15px; }
+      .brand p { font-size: 10px; }
+      .top-actions .status { display: none; }
+      .top-actions .button { padding: 9px 10px; font-size: 11px; }
+      .hero { margin: 20px 3px; }
+      .hero h2 { font-size: 26px; }
+      .panel-head { padding: 13px; min-height: 64px; }
+      .messages { padding: 14px 12px; }
+      .composer { padding: 12px; }
+      .composer-row { gap: 7px; }
+      .composer-row .button { padding: 12px; }
+      .modal { padding: 23px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="shell">
-<header class="top">
-<div class="brandrow"><div class="logo">A</div><div><div class="brand">ANON<span>CHAT</span> PRO</div><div class="sub">CONVERSAS EM TEMPO REAL</div></div></div>
-<div class="topright"><div class="pill privacy">◇ Sem cadastro</div><div class="pill" id="connectionPill"><span class="dot"></span><span id="connection">Conectando...</span></div><button class="iconbtn" id="reconnect" aria-label="Reconectar" title="Reconectar">↻</button></div>
-</header>
-<section class="hero"><div><div class="eyebrow">Seu espaço. Sua conversa.</div><h1>Conexões reais, <span>sem complicação.</span></h1><p>Entre na sala pública, conheça pessoas e compartilhe ideias em tempo real.</p></div><div class="tag">✦ Aberto para todos</div></section>
-<main class="grid">
-<section class="panel chat">
-<div class="panelhead"><div class="headleft"><div class="roomicon">◉</div><div><h2>Sala principal</h2><p>Conversa pública · Ao vivo</p></div></div><input class="search" id="searchMessages" placeholder="Buscar mensagens..." aria-label="Buscar mensagens"></div>
-<div class="messages" id="messages" aria-live="polite"><div class="welcome" id="welcome"><div class="welcomeicon">✧</div><strong>A conversa começa aqui</strong><p>Entre com um apelido e diga olá para a comunidade.</p></div></div>
-<div class="compose"><form class="formline" id="chatForm"><div class="field"><input id="message" maxlength="500" placeholder="Escreva sua mensagem..." autocomplete="off" disabled aria-label="Mensagem"><button type="button" class="emoji" id="emoji" disabled aria-label="Inserir emoji">☺</button></div><button class="send" id="send" disabled type="submit"><span>➤</span><span>Enviar</span></button></form><div class="composefoot"><span>Enter para enviar · Seja respeitoso</span><span id="charCount">0 / 500</span></div><div class="error" id="chatError"></div></div>
-</section>
-<aside class="panel sidebar">
-<div class="panelhead"><div class="headleft"><div class="roomicon">♧</div><div><h2>Comunidade</h2><p>Participantes online</p></div></div><div class="count" id="count">0</div></div>
-<div class="usersearch"><input id="searchUsers" placeholder="Buscar participante..." aria-label="Buscar participante"></div><div id="users"><div class="empty">Aguardando participantes...</div></div><div class="divider"></div>
-<div class="info"><strong>✦ Um espaço para todos</strong><p>Converse com respeito. Não compartilhe senhas, endereço, dados financeiros ou informações privadas.</p></div>
-<div class="stats"><div class="stat"><label>Sua sessão</label><b id="sessionTime">00:00</b></div><div class="stat"><label>Status</label><b id="sessionStatus" style="color:#f0c36b">Aguardando</b></div></div>
-</aside>
-</main>
-<footer class="footer"><span>© <span id="year"></span> ANON CHAT PRO · Feito para conectar pessoas.</span><span>Respeito　•　Privacidade　•　Comunidade</span></footer>
-</div>
-<div class="overlay" id="loginOverlay">
-<form class="login" id="loginForm"><div class="loginlogo">A</div><div class="eyebrow">Bem-vindo ao Anon Chat</div><h2>Entre na conversa.</h2><p>Escolha um apelido e participe da sala pública. Sem cadastro, sem complicação.</p>
-<label class="label" for="nickname">SEU APELIDO</label><input id="nickname" maxlength="20" minlength="2" placeholder="Ex.: visitante123" autocomplete="nickname" required>
-<label class="founder-toggle"><input type="checkbox" id="founderMode"> Entrar como fundador</label>
-<div id="passwordBox" hidden><label class="label" for="founderPassword">SENHA PRIVADA DO FUNDADOR</label><input id="founderPassword" type="password" autocomplete="current-password" placeholder="Digite a senha do fundador"></div>
-<button class="primary" type="submit">Entrar na sala →</button><div class="error" id="loginError" role="alert"></div><div class="login-note"><span>◇</span><span>As mensagens são públicas para quem estiver conectado. Evite compartilhar dados pessoais.</span></div>
-</form></div><div class="toastregion" id="toasts" aria-live="polite"></div>
-<script>
-"use strict";
-const $=id=>document.getElementById(id);
-let ws=null,myId=null,myName="",isFounder=false,joined=false,retries=0,timer=null,manual=false,usersCache=[],sessionTimer=null,started=0;
-$("year").textContent=new Date().getFullYear();
-function toast(t,type=""){let e=document.createElement("div");e.className="toast "+(type==="error"?"bad":"");e.textContent=t;$("toasts").append(e);setTimeout(()=>e.remove(),3500)}
-function setConn(t,on=false){$("connection").textContent=t;$("connectionPill").classList.toggle("online",on)}
-function send(d){if(ws&&ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify(d));else toast("Sem conexão com o servidor.","error")}
-function time(t){return new Date(t||Date.now()).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}
-function bottom(){$("messages").scrollTop=$("messages").scrollHeight}
-function system(t,at){let e=document.createElement("div");e.className="sys";e.textContent="✦ "+t+" · "+time(at);$("messages").append(e);trim();bottom()}
-function trim(){while($("messages").children.length>250)$("messages").firstElementChild.remove()}
-function addMessage(d){
- if(!d||typeof d.text!=="string")return;
- $("welcome")?.remove();
- let r=document.createElement("article");r.className="msg"+(d.id===myId?" mine":"");r.dataset.search=((d.name||"Visitante")+" "+d.text).toLocaleLowerCase("pt-BR");
- let a=document.createElement("div");a.className="avatar";a.textContent=(d.name||"?").slice(0,1).toLocaleUpperCase("pt-BR");
- let c=document.createElement("div");c.className="content";let m=document.createElement("div");m.className="meta";
- let n=document.createElement("span");n.className="name";n.textContent=d.name||"Visitante";m.append(n);
- if(d.isFounder){let b=document.createElement("span");b.className="badge";b.textContent="FUNDADOR";m.append(b)}
- let tm=document.createElement("time");tm.className="time";tm.textContent=time(d.time);m.append(tm);
- let b=document.createElement("div");b.className="bubble";b.textContent=d.text;c.append(m,b);r.append(a,c);$("messages").append(r);trim();applySearch();bottom()
-}
-function applySearch(){let q=$("searchMessages").value.trim().toLocaleLowerCase("pt-BR");$("messages").querySelectorAll(".msg").forEach(e=>e.hidden=!!q&&!e.dataset.search.includes(q))}
-function renderUsers(users){
- usersCache=Array.isArray(users)?users:[];$("count").textContent=usersCache.length;$("users").replaceChildren();
- let q=$("searchUsers").value.trim().toLocaleLowerCase("pt-BR"),list=usersCache.filter(u=>(u.name||"").toLocaleLowerCase("pt-BR").includes(q));
- if(!list.length){let e=document.createElement("div");e.className="empty";e.textContent=usersCache.length?"Nenhum participante encontrado.":"Ninguém online no momento.";$("users").append(e);return}
- for(let u of list){
-  let r=document.createElement("div");r.className="userrow";let a=document.createElement("div");a.className="uavatar";a.textContent=(u.name||"?").slice(0,1).toLocaleUpperCase("pt-BR");
-  let i=document.createElement("div");i.className="uinfo";let n=document.createElement("div");n.className="uname";n.textContent=u.name;let s=document.createElement("div");s.className="ustatus";s.textContent=u.isFounder?"Fundador do chat":u.id===myId?"Sua sessão":"Online agora";i.append(n,s);r.append(a,i);
-  if(u.id===myId){let y=document.createElement("span");y.className="you";y.textContent="VOCÊ";r.append(y)}
-  else if(isFounder&&!u.isFounder){let k=document.createElement("button");k.className="kick";k.textContent="Expulsar";k.type="button";k.onclick=()=>{if(confirm("Expulsar "+u.name+" do chat?"))send({type:"kick",name:u.name})};r.append(k)}
-  $("users").append(r)
- }
-}
-function setJoined(v){
- joined=v;$("message").disabled=!v;$("send").disabled=!v;$("emoji").disabled=!v;
- $("sessionStatus").textContent=v?"Conectado":"Aguardando";$("sessionStatus").style.color=v?"var(--green)":"#f0c36b";
- if(v){started=Date.now();clearInterval(sessionTimer);sessionTimer=setInterval(()=>{let s=Math.floor((Date.now()-started)/1000);$("sessionTime").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")},1000)}
-}
-function connect(){
- clearTimeout(timer);if(ws&&(ws.readyState===1||ws.readyState===0))return;setConn("Conectando...");
- try{ws=new WebSocket((location.protocol==="https:"?"wss:":"ws:")+"//"+location.host)}catch{setConn("Offline");retry();return}
- ws.onopen=()=>{retries=0;setConn("Conectado",true);if(myName)send({type:"join",name:myName,founderPassword:isFounder?$("founderPassword").value:""})};
- ws.onmessage=e=>{
-  let d;try{d=JSON.parse(e.data)}catch{return}
-  if(d.type==="joined"){myId=d.id;myName=d.name;isFounder=!!d.isFounder;setJoined(true);$("loginOverlay").hidden=true;$("loginError").textContent="";renderUsers(usersCache);toast(isFounder?"Acesso de fundador ativado.":"Você entrou no chat.");$("message").focus()}
-  else if(d.type==="message")addMessage(d);
-  else if(d.type==="system")system(d.text,d.time);
-  else if(d.type==="users")renderUsers(d.users);
-  else if(d.type==="error"){$("loginError").textContent=d.text;toast(d.text,"error")}
-  else if(d.type==="admin_action")toast(d.text);
-  else if(d.type==="kicked"){toast(d.text,"error");myName="";isFounder=false;setJoined(false);$("loginOverlay").hidden=false;$("nickname").value="";$("founderMode").checked=false;$("passwordBox").hidden=true;$("founderPassword").value="";try{ws.close()}catch{}}
- };
- ws.onclose=()=>{setJoined(false);isFounder=false;$("loginOverlay").hidden=false;setConn("Reconectando...");if(!manual)retry()};
- ws.onerror=()=>setConn("Falha na conexão")
-}
-function retry(){clearTimeout(timer);retries++;timer=setTimeout(()=>{if(!manual)connect()},Math.min(15000,800*Math.pow(1.7,retries)))}
-$("founderMode").onchange=()=>{$("passwordBox").hidden=!$("founderMode").checked;if($("founderMode").checked)$("nickname").value="fundador";else $("founderPassword").value=""};
-$("loginForm").onsubmit=e=>{
- e.preventDefault();myName=$("nickname").value.trim().replace(/\s+/g," ");isFounder=$("founderMode").checked;
- if(myName.length<2||myName.length>20){$("loginError").textContent="Use um apelido de 2 a 20 caracteres.";return}
- if(isFounder&&!$("founderPassword").value){$("loginError").textContent="Digite a senha do fundador.";return}
- if(ws&&ws.readyState===1)send({type:"join",name:myName,founderPassword:isFounder?$("founderPassword").value:""});
- else{$("loginError").textContent="Conectando ao servidor; tente novamente.";connect()}
-};
-$("chatForm").onsubmit=e=>{e.preventDefault();let text=$("message").value.trim();if(!text||!joined)return;if(text.length>500){$("chatError").textContent="Máximo de 500 caracteres.";return}send({type:"message",text});$("message").value="";$("charCount").textContent="0 / 500";$("chatError").textContent=""};
-$("message").oninput=()=>{$("charCount").textContent=$("message").value.length+" / 500"};
-$("searchMessages").oninput=applySearch;$("searchUsers").oninput=()=>renderUsers(usersCache);
-$("emoji").onclick=()=>{let a=["😀","😂","😍","😎","🤔","🔥","❤️","👏","✨","👋","💜","🙌"],v=prompt("Escolha um emoji pelo número:\n"+a.map((x,i)=>(i+1)+". "+x).join("   ")),n=Number(v);if(Number.isInteger(n)&&n>0&&n<=a.length){$("message").value+=a[n-1];$("message").dispatchEvent(new Event("input"))}};
-$("reconnect").onclick=()=>{manual=true;clearTimeout(timer);try{ws?.close()}catch{}ws=null;manual=false;retries=0;connect();toast("Reconectando...")};
-window.addEventListener("online",()=>{if(!ws||ws.readyState===3)connect()});
-window.addEventListener("beforeunload",()=>{manual=true;clearTimeout(timer);clearInterval(sessionTimer);ws?.close()});
-connect();
-</script>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">✦</div>
+        <div>
+          <h1>ANON CHAT <span style="color:#a895ff">PRO</span></h1>
+          <p>Conexões anônimas em tempo real</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="status">
+          <span id="statusDot" class="dot"></span>
+          <span id="statusText">Desconectado</span>
+        </div>
+        <button id="changeNameButton" class="button" type="button">Entrar no chat</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">✧ Seu espaço. Sua conversa.</div>
+        <h2>Converse sem complicação.</h2>
+        <p>Entre na comunidade, conheça pessoas e participe de conversas em tempo real.</p>
+      </div>
+      <div class="badge">◈ Chat comunitário</div>
+    </section>
+
+    <main class="layout">
+      <section class="panel chat-panel">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="symbol">◉</span>
+            <div>
+              <h3>Chat público</h3>
+              <p>Mensagens compartilhadas com os participantes conectados</p>
+            </div>
+          </div>
+          <div class="count" id="messageCount">0</div>
+        </div>
+
+        <div class="chat-toolbar">
+          <input id="searchMessages" class="search" type="search" placeholder="⌕  Buscar nas mensagens..." aria-label="Buscar mensagens">
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite">
+          <div class="welcome-card">
+            <div class="welcome-icon">🌌</div>
+            <h3>Bem-vindo ao ANON CHAT PRO</h3>
+            <p>Um lugar para conversar e conhecer novas pessoas.<br>Escolha um apelido para começar.</p>
+          </div>
+        </div>
+
+        <form id="messageForm" class="composer">
+          <div class="composer-row">
+            <input
+              id="messageInput"
+              class="message-input"
+              type="text"
+              maxlength="500"
+              placeholder="Entre no chat para enviar mensagens..."
+              autocomplete="off"
+              aria-label="Escreva sua mensagem"
+              disabled
+            >
+            <button id="sendButton" class="button primary" type="submit" disabled>Enviar ↗</button>
+          </div>
+          <div class="composer-note">
+            <span>💬 Respeite os outros participantes.</span>
+            <span id="charCount">0/500</span>
+          </div>
+        </form>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="symbol">♙</span>
+              <div>
+                <h3>Participantes</h3>
+                <p>Pessoas conectadas agora</p>
+              </div>
+            </div>
+            <div id="userCount" class="count">0</div>
+          </div>
+          <div id="participants" class="participants">
+            <div class="empty">Os participantes aparecerão aqui quando se conectarem.</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="symbol">✧</span>
+              <div>
+                <h3>Sobre o chat</h3>
+                <p>Informações da comunidade</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-content">
+            <div class="info-row">
+              <div class="info-icon">⚡</div>
+              <div>
+                <h4>Tempo real</h4>
+                <p>As mensagens são enviadas pelo servidor para os participantes conectados.</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-icon">🎭</div>
+              <div>
+                <h4>Apelido público</h4>
+                <p>Use um apelido. Não compartilhe senhas, endereço ou informações pessoais.</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-icon">🛡️</div>
+              <div>
+                <h4>Respeito em primeiro lugar</h4>
+                <p>Não envie spam, ameaças ou conteúdo que exponha outras pessoas.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <strong>ANON CHAT PRO</strong> · Um espaço de conversa comunitária.<br>
+      Use com responsabilidade. Não compartilhe dados pessoais ou informações confidenciais.
+    </footer>
+  </div>
+
+  <div id="joinOverlay" class="overlay">
+    <form id="joinForm" class="modal">
+      <div class="modal-logo">✦</div>
+      <div class="eyebrow">ACESSO À COMUNIDADE</div>
+      <h2>Entre na conversa.</h2>
+      <p>Escolha como deseja aparecer no chat. Seu apelido será visível para os outros participantes.</p>
+
+      <label class="field">
+        <span>Seu apelido</span>
+        <input id="nickname" type="text" maxlength="24" minlength="2" placeholder="Ex.: Anônimo123" autocomplete="nickname" required>
+      </label>
+
+      <label class="field">
+        <span>Senha do fundador (opcional)</span>
+        <input id="founderPassword" type="password" maxlength="128" placeholder="Deixe vazio se não for fundador" autocomplete="current-password">
+      </label>
+
+      <button id="joinButton" class="button primary" type="submit">Entrar no chat →</button>
+      <div class="modal-note">Não use uma senha que você utiliza em outras contas.<br>O acesso de fundador depende da configuração do servidor.</div>
+    </form>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = (id) => document.getElementById(id);
+
+      const elements = {
+        statusDot: $("statusDot"),
+        statusText: $("statusText"),
+        changeNameButton: $("changeNameButton"),
+        joinOverlay: $("joinOverlay"),
+        joinForm: $("joinForm"),
+        nickname: $("nickname"),
+        founderPassword: $("founderPassword"),
+        joinButton: $("joinButton"),
+        messageForm: $("messageForm"),
+        messageInput: $("messageInput"),
+        sendButton: $("sendButton"),
+        messages: $("messages"),
+        participants: $("participants"),
+        userCount: $("userCount"),
+        messageCount: $("messageCount"),
+        charCount: $("charCount"),
+        searchMessages: $("searchMessages"),
+        toast: $("toast")
+      };
+
+      const state = {
+        socket: null,
+        name: "",
+        id: "",
+        isFounder: false,
+        joined: false,
+        users: [],
+        messageTotal: 0,
+        history: [],
+        search: "",
+        toastTimeout: null,
+        manuallyClosed: false
+      };
+
+      function showToast(message) {
+        elements.toast.textContent = message;
+        elements.toast.classList.add("show");
+        clearTimeout(state.toastTimeout);
+        state.toastTimeout = setTimeout(() => {
+          elements.toast.classList.remove("show");
+        }, 3500);
+      }
+
+      function setStatus(label, mode = "") {
+        elements.statusText.textContent = label;
+        elements.statusDot.className = "dot" + (mode ? " " + mode : "");
+      }
+
+      function setJoined(enabled) {
+        state.joined = enabled;
+        elements.messageInput.disabled = !enabled;
+        elements.sendButton.disabled = !enabled;
+        elements.messageInput.placeholder = enabled
+          ? "Digite sua mensagem..."
+          : "Entre no chat para enviar mensagens...";
+        elements.changeNameButton.textContent = enabled ? "Reconectar" : "Entrar no chat";
+      }
+
+      function safeText(value, max = 500) {
+        return String(value ?? "").slice(0, max);
+      }
+
+      function formatTime(value) {
+        if (value === undefined || value === null || value === "") {
+          return new Date().toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        }
+
+        if (typeof value === "number") {
+          const date = new Date(value);
+          if (!Number.isNaN(date.getTime())) {
+            return date.toLocaleTimeString("pt-BR", {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+          }
+        }
+
+        const text = String(value);
+        if (/^\d{1,2}:\d{2}$/.test(text)) return text;
+
+        const date = new Date(text);
+        if (!Number.isNaN(date.getTime())) {
+          return date.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        }
+
+        return text.slice(0, 20);
+      }
+
+      function scrollToBottom() {
+        elements.messages.scrollTop = elements.messages.scrollHeight;
+      }
+
+      function removeWelcomeCard() {
+        const card = elements.messages.querySelector(".welcome-card");
+        if (card) card.remove();
+      }
+
+      function addSystemMessage(text, time) {
+        removeWelcomeCard();
+
+        const row = document.createElement("div");
+        row.className = "message system";
+        row.dataset.search = String(text).toLocaleLowerCase("pt-BR");
+
+        const content = document.createElement("div");
+        content.className = "system-text";
+        content.textContent = "✧ " + safeText(text, 500) + " · " + formatTime(time);
+
+        row.appendChild(content);
+        elements.messages.appendChild(row);
+        state.history.push({ element: row, search: row.dataset.search });
+        applySearch();
+        scrollToBottom();
+      }
+
+      function addChatMessage(data) {
+        removeWelcomeCard();
+
+        const name = safeText(data.name || "Anônimo", 24);
+        const text = safeText(data.text, 500);
+        const time = formatTime(data.time);
+        const isFounder = Boolean(data.isFounder);
+        const row = document.createElement("div");
+
+        row.className = "message";
+        row.dataset.search = (name + " " + text).toLocaleLowerCase("pt-BR");
+
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.textContent = Array.from(name.trim())[0]?.toUpperCase() || "?";
+
+        const body = document.createElement("div");
+        body.className = "message-body";
+
+        const meta = document.createElement("div");
+        meta.className = "message-meta";
+
+        const nameElement = document.createElement("span");
+        nameElement.className = "message-name";
+        nameElement.textContent = name;
+        meta.appendChild(nameElement);
+
+        if (isFounder) {
+          const tag = document.createElement("span");
+          tag.className = "founder-tag";
+          tag.textContent = "FUNDADOR";
+          meta.appendChild(tag);
+        }
+
+        const timestamp = document.createElement("span");
+        timestamp.className = "message-time";
+        timestamp.textContent = time;
+        meta.appendChild(timestamp);
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = text;
+
+        body.append(meta, bubble);
+        row.append(avatar, body);
+        elements.messages.appendChild(row);
+
+        state.history.push({
+          element: row,
+          search: row.dataset.search
+        });
+
+        state.messageTotal += 1;
+        elements.messageCount.textContent = String(state.messageTotal);
+
+        applySearch();
+        scrollToBottom();
+      }
+
+      function applySearch() {
+        const query = state.search.trim().toLocaleLowerCase("pt-BR");
+
+        for (const item of state.history) {
+          item.element.style.display =
+            !query || item.search.includes(query) ? "" : "none";
+        }
+      }
+
+      function renderUsers(users) {
+        state.users = Array.isArray(users) ? users : [];
+        elements.userCount.textContent = String(state.users.length);
+        elements.participants.replaceChildren();
+
+        if (state.users.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = "Nenhum participante conectado no momento.";
+          elements.participants.appendChild(empty);
+          return;
+        }
+
+        for (const user of state.users) {
+          const name = safeText(user.name || "Anônimo", 24);
+          const isFounder = Boolean(user.isFounder);
+          const row = document.createElement("div");
+          row.className = "participant";
+
+          const avatar = document.createElement("div");
+          avatar.className = "avatar";
+          avatar.textContent = Array.from(name.trim())[0]?.toUpperCase() || "?";
+
+          const info = document.createElement("div");
+          info.className = "participant-info";
+
+          const username = document.createElement("div");
+          username.className = "participant-name";
+          username.textContent = name;
+
+          const status = document.createElement("div");
+          status.className = "participant-state";
+
+          const dot = document.createElement("span");
+          dot.className = "dot online";
+          status.append(dot, document.createTextNode(isFounder ? "Fundador" : "Online"));
+
+          info.append(username, status);
+          row.append(avatar, info);
+
+          if (
+            state.isFounder &&
+            user.id &&
+            user.id !== state.id &&
+            !isFounder
+          ) {
+            const kick = document.createElement("button");
+            kick.type = "button";
+            kick.className = "button danger kick-button";
+            kick.textContent = "Remover";
+            kick.title = "Remover este participante";
+            kick.addEventListener("click", () => {
+              const confirmed = window.confirm(
+                "Deseja remover " + name + " do chat?"
+              );
+
+              if (confirmed) {
+                sendPacket({ type: "kick", name });
+              }
+            });
+            row.appendChild(kick);
+          }
+
+          elements.participants.appendChild(row);
+        }
+      }
+
+      function sendPacket(data) {
+        if (!state.socket || state.socket.readyState !== WebSocket.OPEN) {
+          showToast("Sem conexão com o servidor. Tente novamente.");
+          return false;
+        }
+
+        try {
+          state.socket.send(JSON.stringify(data));
+          return true;
+        } catch {
+          showToast("Não foi possível enviar. Tente novamente.");
+          return false;
+        }
+      }
+
+      function handlePacket(packet) {
+        if (!packet || typeof packet !== "object") return;
+
+        switch (packet.type) {
+          case "joined": {
+            state.id = safeText(packet.id, 200);
+            state.name = safeText(packet.name || state.name, 24);
+            state.isFounder = Boolean(packet.isFounder);
+
+            setJoined(true);
+            elements.joinOverlay.classList.add("hidden");
+            elements.nickname.value = state.name;
+            elements.founderPassword.value = "";
+
+            setStatus("Conectado", "online");
+            showToast(
+              state.isFounder
+                ? "Acesso de fundador confirmado."
+                : "Você entrou no chat!"
+            );
+
+            elements.messageInput.focus();
+            break;
+          }
+
+          case "message":
+            addChatMessage(packet);
+            break;
+
+          case "system":
+            addSystemMessage(packet.text || "Evento do chat.", packet.time);
+            break;
+
+          case "users":
+            renderUsers(packet.users);
+            break;
+
+          case "error":
+            showToast(safeText(packet.text || "O servidor informou um erro.", 300));
+            elements.joinButton.disabled = false;
+            elements.joinButton.textContent = "Entrar no chat →";
+            break;
+
+          case "admin_action":
+            showToast(safeText(packet.text || "Ação administrativa executada.", 300));
+            break;
+
+          case "kicked":
+            showToast(safeText(packet.text || "Você foi removido do chat.", 300));
+            setJoined(false);
+            state.isFounder = false;
+            state.manuallyClosed = true;
+
+            if (state.socket) {
+              state.socket.close();
+            }
+
+            elements.joinOverlay.classList.remove("hidden");
+            break;
+
+          default:
+            console.debug("Tipo de mensagem não reconhecido:", packet.type);
+        }
+      }
+
+      function getWebSocketUrl() {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        return protocol + "//" + window.location.host;
+      }
+
+      function connect(name, founderPassword) {
+        if (!window.WebSocket) {
+          showToast("Seu navegador não oferece suporte a WebSocket.");
+          return;
+        }
+
+        if (!window.location.host) {
+          showToast("Abra o site por um servidor HTTP ou HTTPS.");
+          return;
+        }
+
+        if (
+          state.socket &&
+          (state.socket.readyState === WebSocket.OPEN ||
+           state.socket.readyState === WebSocket.CONNECTING)
+        ) {
+          state.socket.close();
+        }
+
+        state.manuallyClosed = false;
+        state.name = name;
+        state.isFounder = false;
+        state.id = "";
+        setJoined(false);
+        setStatus("Conectando...", "connecting");
+
+        elements.joinButton.disabled = true;
+        elements.joinButton.textContent = "Conectando...";
+
+        let socket;
+
+        try {
+          socket = new WebSocket(getWebSocketUrl());
+          state.socket = socket;
+        } catch {
+          setStatus("Falha na conexão");
+          elements.joinButton.disabled = false;
+          elements.joinButton.textContent = "Entrar no chat →";
+          showToast("Não foi possível iniciar a conexão WebSocket.");
+          return;
+        }
+
+        socket.addEventListener("open", () => {
+          if (state.socket !== socket) return;
+
+          setStatus("Autenticando...", "connecting");
+
+          const packet = {
+            type: "join",
+            name
+          };
+
+          if (founderPassword) {
+            packet.founderPassword = founderPassword;
+          }
+
+          socket.send(JSON.stringify(packet));
+        });
+
+        socket.addEventListener("message", (event) => {
+          if (state.socket !== socket) return;
+
+          try {
+            const packet = JSON.parse(event.data);
+            handlePacket(packet);
+          } catch {
+            console.warn("O servidor enviou uma mensagem inválida.");
+          }
+        });
+
+        socket.addEventListener("error", () => {
+          if (state.socket !== socket) return;
+          setStatus("Erro de conexão");
+        });
+
+        socket.addEventListener("close", () => {
+          if (state.socket !== socket) return;
+
+          setJoined(false);
+          setStatus("Desconectado");
+          elements.joinButton.disabled = false;
+          elements.joinButton.textContent = "Entrar no chat →";
+
+          if (!state.manuallyClosed) {
+            showToast("A conexão foi encerrada. Entre novamente para continuar.");
+          }
+        });
+      }
+
+      elements.joinForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = elements.nickname.value.trim();
+        const password = elements.founderPassword.value;
+
+        if (name.length < 2) {
+          showToast("Seu apelido precisa ter pelo menos 2 caracteres.");
+          elements.nickname.focus();
+          return;
+        }
+
+        if (name.length > 24) {
+          showToast("O apelido pode ter no máximo 24 caracteres.");
+          return;
+        }
+
+        if (/[\u0000-\u001f\u007f]/.test(name)) {
+          showToast("Esse apelido contém caracteres inválidos.");
+          return;
+        }
+
+        connect(name, password);
+      });
+
+      elements.changeNameButton.addEventListener("click", () => {
+        if (state.joined) {
+          state.manuallyClosed = true;
+
+          if (state.socket) {
+            state.socket.close();
+          }
+
+          setJoined(false);
+          state.isFounder = false;
+          elements.founderPassword.value = "";
+          elements.joinOverlay.classList.remove("hidden");
+          elements.joinButton.disabled = false;
+          elements.joinButton.textContent = "Entrar no chat →";
+          elements.nickname.value = state.name;
+          elements.nickname.focus();
+        } else {
+          elements.joinOverlay.classList.remove("hidden");
+          elements.nickname.focus();
+        }
+      });
+
+      elements.messageForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const text = elements.messageInput.value.trim();
+
+        if (!text) return;
+        if (!state.joined) {
+          showToast("Entre no chat antes de enviar mensagens.");
+          return;
+        }
+
+        if (text.length > 500) {
+          showToast("Sua mensagem ultrapassa o limite de 500 caracteres.");
+          return;
+        }
+
+        if (sendPacket({ type: "message", text })) {
+          elements.messageInput.value = "";
+          elements.charCount.textContent = "0/500";
+          elements.messageInput.focus();
+        }
+      });
+
+      elements.messageInput.addEventListener("input", () => {
+        elements.charCount.textContent =
+          elements.messageInput.value.length + "/500";
+      });
+
+      elements.searchMessages.addEventListener("input", () => {
+        state.search = elements.searchMessages.value;
+        applySearch();
+      });
+
+      elements.founderPassword.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          elements.joinForm.requestSubmit();
+        }
+      });
+
+      window.addEventListener("beforeunload", () => {
+        state.manuallyClosed = true;
+
+        if (state.socket) {
+          state.socket.close();
+        }
+      });
+
+      setJoined(false);
+      setStatus("Desconectado");
+    })();
+  </script>
 </body>
 </html>
