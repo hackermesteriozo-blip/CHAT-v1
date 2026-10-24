@@ -1,20 +1,143 @@
+
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080910"><title>ANON CHAT PRO</title>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080910">
+<title>ANON CHAT PRO</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-:root{color-scheme:dark;--bg:#080910;--panel:#121523;--line:#aab2d522;--muted:#939bb6;--purple:#9a7bff;--green:#4be0ae;--red:#ff788b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#2a2058 0,transparent 38%),radial-gradient(ellipse at 100% 70%,#172144 0,transparent 34%),var(--bg);color:#f5f6ff;font:14px 'DM Sans',sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--purple);outline-offset:3px}[hidden]{display:none!important}.shell{max-width:1400px;margin:auto;padding:0 26px 25px}.top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brandrow{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(140deg,#b69dff,#6244e7);font:700 23px 'Space Grotesk';box-shadow:0 8px 30px #7959e944}.brand{font:700 20px 'Space Grotesk'}.brand span{color:#b8a3ff}.sub{color:var(--muted);font-size:10px;letter-spacing:1px;margin-top:3px}.topright{display:flex;align-items:center;gap:9px}.pill{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:9px 12px;color:var(--muted);font-size:11px}.dot{width:7px;height:7px;background:#f0c36b;border-radius:50%}.pill.online{color:#b8f7df;border-color:#4be0ae44}.pill.online .dot{background:var(--green)}.iconbtn{width:39px;height:39px;border:1px solid var(--line);border-radius:12px;background:#ffffff06;color:#ddd}.hero{display:flex;align-items:end;justify-content:space-between;gap:18px;padding:34px 0 25px}.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#b8a4ff;font-weight:700}.hero h1{font:600 clamp(28px,4vw,42px)/1.12 'Space Grotesk';letter-spacing:-1.5px;margin:9px 0}.hero h1 span{color:#b49cff}.hero p{margin:0;color:var(--muted);line-height:1.7}.tag{padding:10px 13px;border-radius:12px;border:1px solid #9a7bff30;background:#9a7bff12;color:#cbbdff;white-space:nowrap}.grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:17px}.panel{min-width:0;border:1px solid var(--line);border-radius:21px;overflow:hidden;background:linear-gradient(150deg,#151827f7,#0e111df7);box-shadow:0 25px 80px #0003}.chat{display:flex;flex-direction:column;min-height:640px}.panelhead{min-height:73px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}.headleft{display:flex;align-items:center;gap:10px}.roomicon{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:#9a7bff18;color:#c8b8ff;font-size:18px}.panelhead h2{font-size:13px;margin:0}.panelhead p{font-size:10px;color:var(--muted);margin:4px 0 0}.search{width:150px;min-width:0;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:#0b0e18;color:white}.messages{height:445px;overflow:auto;padding:21px;display:flex;flex-direction:column;gap:15px}.welcome{margin:auto;text-align:center;max-width:370px;padding:25px;border:1px dashed #aab2d533;border-radius:20px;color:var(--muted)}.welcomeicon{width:55px;height:55px;margin:0 auto 14px;display:grid;place-items:center;border-radius:18px;background:#9a7bff19;font-size:25px}.welcome strong{display:block;font:600 19px 'Space Grotesk';color:#fff;margin-bottom:7px}.welcome p{font-size:12px;line-height:1.7;margin:0}.msg{display:flex;gap:9px;align-items:flex-end;max-width:90%;align-self:flex-start}.msg.mine{align-self:flex-end;flex-direction:row-reverse}.avatar{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;border-radius:11px;background:#30264f;color:#d9ceff;font-weight:700}.mine .avatar{background:#174b45;color:#bdf8e2}.content{min-width:0}.meta{display:flex;align-items:center;gap:7px;margin:0 4px 5px}.name{font-size:11px;color:#c8baff;font-weight:700}.mine .name{color:#8aebcb}.badge{font-size:9px;color:#ffe4a3;background:#a8751c25;border:1px solid #f1c56a44;border-radius:5px;padding:2px 5px}.time{font-size:10px;color:#7e86a1}.bubble{white-space:pre-wrap;overflow-wrap:anywhere;background:#1a1e2e;border:1px solid #abb3d51a;border-radius:5px 15px 15px 15px;padding:11px 14px;line-height:1.55}.mine .bubble{background:linear-gradient(135deg,#4e3c91,#382e70);border-radius:15px 5px 15px 15px}.sys{align-self:center;text-align:center;border:1px solid #abb3d514;background:#ffffff05;color:#8e96b0;padding:6px 11px;border-radius:99px;font-size:10px}.compose{padding:14px 17px 16px;border-top:1px solid var(--line)}.formline{display:flex;gap:9px}.field{flex:1;min-width:0;position:relative}.field input,.login input{width:100%;padding:13px 14px;border:1px solid #abb3d52a;border-radius:13px;background:#0b0e18;color:#fff}.field input{padding-right:42px}.emoji{position:absolute;right:7px;top:50%;transform:translateY(-50%);background:none;border:0;color:#a9b0c9;font-size:19px}.send,.primary{border:0;border-radius:13px;padding:13px 17px;background:linear-gradient(130deg,#9a7bff,#6244e7);color:#fff;font-weight:700}.composefoot{display:flex;justify-content:space-between;color:#737b95;font-size:10px;margin-top:9px}.error{min-height:14px;margin-top:7px;color:var(--red);font-size:11px}.sidebar{display:flex;flex-direction:column}.count{min-width:28px;padding:5px 8px;text-align:center;border-radius:9px;background:#9a7bff1e;color:#c7b9ff;font-size:11px}.usersearch{padding:12px 14px 3px}.usersearch input{width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:#0b0e18;color:#fff}#users{padding:6px 14px 14px;max-height:340px;overflow:auto}.userrow{display:flex;align-items:center;gap:8px;padding:10px 5px;border-bottom:1px solid #abb3d510}.uavatar{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#30264f;color:#d9ceff;flex-shrink:0}.uinfo{flex:1;min-width:0}.uname{font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ustatus{font-size:10px;color:var(--muted);margin-top:3px}.you{font-size:9px;color:#c9baff;background:#9a7bff20;border-radius:5px;padding:3px}.kick{font-size:10px;padding:5px 7px;border:1px solid #ff788b44;color:#ff9aa8;background:#ff788b0d;border-radius:7px}.empty{text-align:center;padding:18px 5px;color:var(--muted);font-size:11px}.divider{height:1px;background:var(--line);margin:0 15px}.info{margin:14px;padding:14px;border:1px solid #9a7bff25;border-radius:14px;background:#9a7bff0c}.info strong{display:block;font-size:12px;margin-bottom:7px}.info p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 14px 14px}.stat{border:1px solid var(--line);border-radius:12px;padding:11px;background:#ffffff04}.stat label{display:block;font-size:10px;color:var(--muted)}.stat b{display:block;font:600 15px 'Space Grotesk';margin-top:4px}.footer{display:flex;justify-content:space-between;gap:15px;padding:20px 3px 0;color:#737b95;font-size:10px}
-.overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:18px;background:#05060ddc;backdrop-filter:blur(17px)}.login{width:min(460px,100%);padding:31px;position:relative;overflow:hidden;border-radius:25px;border:1px solid #a99aff35;background:linear-gradient(155deg,#171a2b,#10121f 78%);box-shadow:0 35px 110px #0009}.login:before{content:"";position:absolute;top:-150px;right:-80px;width:250px;height:250px;border-radius:50%;background:#9a7bff25;filter:blur(30px);pointer-events:none}.loginlogo{width:57px;height:57px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(140deg,#b49aff,#6846e8);font:700 25px 'Space Grotesk';margin-bottom:22px}.login h2{font:600 29px 'Space Grotesk';letter-spacing:-.8px;margin:10px 0}.login p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:22px}.label{display:block;font-size:10px;letter-spacing:1px;font-weight:700;color:#d5d8e9;margin-bottom:8px}.login input{margin-bottom:13px}.founder-toggle{display:flex;align-items:center;gap:9px;color:#b7bed5;font-size:11px;margin-bottom:12px;cursor:pointer}.founder-toggle input{width:auto;margin:0;accent-color:#9a7bff}.login .primary{width:100%;padding:14px}.login-note{display:flex;gap:9px;margin-top:18px;padding-top:15px;border-top:1px solid var(--line);font-size:10px;line-height:1.6;color:#838ba5}.toastregion{position:fixed;right:18px;bottom:18px;z-index:30;display:grid;gap:8px}.toast{max-width:340px;background:#1b2031;border:1px solid var(--line);border-radius:12px;padding:12px 15px;box-shadow:0 15px 45px #0006;font-size:12px}.toast.bad{border-color:#ff788b66}
-@media(min-width:1000px){.messages{flex:1;min-height:400px;height:auto;max-height:590px}}@media(max-width:900px){.shell{padding:0 16px 22px}.grid{grid-template-columns:minmax(0,1fr) 255px}.search{width:120px}}@media(max-width:700px){.shell{padding:0 11px 20px}.top{height:68px}.brand{font-size:17px}.logo{width:38px;height:38px}.sub,.privacy{display:none}.hero{display:block;padding:25px 2px 20px}.hero h1{font-size:30px}.tag{display:inline-block;margin-top:15px}.grid{grid-template-columns:1fr}.chat{min-height:0}.panelhead{padding:12px}.roomicon{width:34px;height:34px}.search{width:100px;padding:8px}.messages{height:47vh;min-height:300px;padding:15px 10px}.msg{max-width:96%;gap:7px}.avatar{width:28px;height:28px}.bubble{font-size:13px;padding:10px 12px}.compose{padding:12px}.send{width:44px;padding:0}.send span:last-child{display:none}.field input{padding:12px 40px 12px 12px}.sidebar{order:2}#users{max-height:250px;display:grid;grid-template-columns:1fr 1fr;gap:2px}.footer{flex-direction:column;gap:7px}.login{padding:26px 21px}}@media(max-width:380px){.search{width:84px}.headleft{gap:7px}#users{grid-template-columns:1fr}}
-</style></head>
-<body><div class="shell">
-<header class="top"><div class="brandrow"><div class="logo">A</div><div><div class="brand">ANON<span>CHAT</span> PRO</div><div class="sub">CONVERSAS EM TEMPO REAL</div></div></div><div class="topright"><div class="pill privacy">◇ Sem cadastro</div><div class="pill" id="connectionPill"><span class="dot"></span><span id="connection">Conectando...</span></div><button class="iconbtn" id="reconnect" aria-label="Reconectar" title="Reconectar">↻</button></div></header>
+:root{color-scheme:dark;--bg:#080910;--panel:#121523;--line:#aab2d522;--muted:#939bb6;--purple:#9a7bff;--green:#4be0ae;--red:#ff788b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 15% -10%,#2a2058 0,transparent 38%),radial-gradient(ellipse at 100% 70%,#172144 0,transparent 34%),var(--bg);color:#f5f6ff;font:14px 'DM Sans',sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+[hidden]{display:none!important}
+.shell{max-width:1400px;margin:auto;padding:0 26px 25px}
+.top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.brandrow{display:flex;align-items:center;gap:12px}
+.logo{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(140deg,#b69dff,#6244e7);font:700 23px 'Space Grotesk';box-shadow:0 8px 30px #7959e944}
+.brand{font:700 20px 'Space Grotesk'}.brand span{color:#b8a3ff}
+.sub{color:var(--muted);font-size:10px;letter-spacing:1px;margin-top:3px}
+.topright{display:flex;align-items:center;gap:9px}
+.pill{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:9px 12px;color:var(--muted);font-size:11px}
+.dot{width:7px;height:7px;background:#f0c36b;border-radius:50%}
+.pill.online{color:#b8f7df;border-color:#4be0ae44}.pill.online .dot{background:var(--green)}
+.iconbtn{width:39px;height:39px;border:1px solid var(--line);border-radius:12px;background:#ffffff06;color:#ddd}
+.hero{display:flex;align-items:end;justify-content:space-between;gap:18px;padding:34px 0 25px}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#b8a4ff;font-weight:700}
+.hero h1{font:600 clamp(28px,4vw,42px)/1.12 'Space Grotesk';letter-spacing:-1.5px;margin:9px 0}
+.hero h1 span{color:#b49cff}.hero p{margin:0;color:var(--muted);line-height:1.7}
+.tag{padding:10px 13px;border-radius:12px;border:1px solid #9a7bff30;background:#9a7bff12;color:#cbbdff;white-space:nowrap}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:17px}
+.panel{min-width:0;border:1px solid var(--line);border-radius:21px;overflow:hidden;background:linear-gradient(150deg,#151827f7,#0e111df7);box-shadow:0 25px 80px #0003}
+.chat{display:flex;flex-direction:column;min-height:640px}
+.panelhead{min-height:73px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}
+.headleft{display:flex;align-items:center;gap:10px}
+.roomicon{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:#9a7bff18;color:#c8b8ff;font-size:18px}
+.panelhead h2{font-size:13px;margin:0}.panelhead p{font-size:10px;color:var(--muted);margin:4px 0 0}
+.search{width:150px;min-width:0;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:#0b0e18;color:white}
+.messages{height:445px;overflow:auto;padding:21px;display:flex;flex-direction:column;gap:15px}
+.welcome{margin:auto;text-align:center;max-width:370px;padding:25px;border:1px dashed #aab2d533;border-radius:20px;color:var(--muted)}
+.welcomeicon{width:55px;height:55px;margin:0 auto 14px;display:grid;place-items:center;border-radius:18px;background:#9a7bff19;font-size:25px}
+.welcome strong{display:block;font:600 19px 'Space Grotesk';color:#fff;margin-bottom:7px}
+.welcome p{font-size:12px;line-height:1.7;margin:0}
+.msg{display:flex;gap:9px;align-items:flex-end;max-width:90%;align-self:flex-start}
+.msg.mine{align-self:flex-end;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;border-radius:11px;background:#30264f;color:#d9ceff;font-weight:700}
+.mine .avatar{background:#174b45;color:#bdf8e2}
+.content{min-width:0}.meta{display:flex;align-items:center;gap:7px;margin:0 4px 5px}
+.name{font-size:11px;color:#c8baff;font-weight:700}.mine .name{color:#8aebcb}
+.badge{font-size:9px;color:#ffe4a3;background:#a8751c25;border:1px solid #f1c56a44;border-radius:5px;padding:2px 5px}
+.time{font-size:10px;color:#7e86a1}
+.bubble{white-space:pre-wrap;overflow-wrap:anywhere;background:#1a1e2e;border:1px solid #abb3d51a;border-radius:5px 15px 15px 15px;padding:11px 14px;line-height:1.55}
+.mine .bubble{background:linear-gradient(135deg,#4e3c91,#382e70);border-radius:15px 5px 15px 15px}
+.sys{align-self:center;text-align:center;border:1px solid #abb3d514;background:#ffffff05;color:#8e96b0;padding:6px 11px;border-radius:99px;font-size:10px}
+.compose{padding:14px 17px 16px;border-top:1px solid var(--line)}
+.formline{display:flex;gap:9px}.field{flex:1;min-width:0;position:relative}
+.field input,.login input{width:100%;padding:13px 14px;border:1px solid #abb3d52a;border-radius:13px;background:#0b0e18;color:#fff}
+.field input{padding-right:42px}
+.emoji{position:absolute;right:7px;top:50%;transform:translateY(-50%);background:none;border:0;color:#a9b0c9;font-size:19px}
+.send,.primary{border:0;border-radius:13px;padding:13px 17px;background:linear-gradient(130deg,#9a7bff,#6244e7);color:#fff;font-weight:700}
+.composefoot{display:flex;justify-content:space-between;color:#737b95;font-size:10px;margin-top:9px}
+.error{min-height:14px;margin-top:7px;color:var(--red);font-size:11px}
+.sidebar{display:flex;flex-direction:column}
+.count{min-width:28px;padding:5px 8px;text-align:center;border-radius:9px;background:#9a7bff1e;color:#c7b9ff;font-size:11px}
+.usersearch{padding:12px 14px 3px}
+.usersearch input{width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:#0b0e18;color:#fff}
+#users{padding:6px 14px 14px;max-height:340px;overflow:auto}
+.userrow{display:flex;align-items:center;gap:8px;padding:10px 5px;border-bottom:1px solid #abb3d510}
+.uavatar{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#30264f;color:#d9ceff;flex-shrink:0}
+.uinfo{flex:1;min-width:0}.uname{font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ustatus{font-size:10px;color:var(--muted);margin-top:3px}
+.you{font-size:9px;color:#c9baff;background:#9a7bff20;border-radius:5px;padding:3px}
+.kick{font-size:10px;padding:5px 7px;border:1px solid #ff788b44;color:#ff9aa8;background:#ff788b0d;border-radius:7px}
+.empty{text-align:center;padding:18px 5px;color:var(--muted);font-size:11px}
+.divider{height:1px;background:var(--line);margin:0 15px}
+.info{margin:14px;padding:14px;border:1px solid #9a7bff25;border-radius:14px;background:#9a7bff0c}
+.info strong{display:block;font-size:12px;margin-bottom:7px}
+.info p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 14px 14px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:11px;background:#ffffff04}
+.stat label{display:block;font-size:10px;color:var(--muted)}
+.stat b{display:block;font:600 15px 'Space Grotesk';margin-top:4px}
+.footer{display:flex;justify-content:space-between;gap:15px;padding:20px 3px 0;color:#737b95;font-size:10px}
+.overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:18px;background:#05060ddc;backdrop-filter:blur(17px)}
+.login{width:min(460px,100%);padding:31px;position:relative;overflow:hidden;border-radius:25px;border:1px solid #a99aff35;background:linear-gradient(155deg,#171a2b,#10121f 78%);box-shadow:0 35px 110px #0009}
+.login:before{content:"";position:absolute;top:-150px;right:-80px;width:250px;height:250px;border-radius:50%;background:#9a7bff25;filter:blur(30px);pointer-events:none}
+.loginlogo{width:57px;height:57px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(140deg,#b49aff,#6846e8);font:700 25px 'Space Grotesk';margin-bottom:22px}
+.login h2{font:600 29px 'Space Grotesk';letter-spacing:-.8px;margin:10px 0}
+.login p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:22px}
+.label{display:block;font-size:10px;letter-spacing:1px;font-weight:700;color:#d5d8e9;margin-bottom:8px}
+.login input{margin-bottom:13px}
+.founder-toggle{display:flex;align-items:center;gap:9px;color:#b7bed5;font-size:11px;margin-bottom:12px;cursor:pointer}
+.founder-toggle input{width:auto;margin:0;accent-color:#9a7bff}
+.login .primary{width:100%;padding:14px}
+.login-note{display:flex;gap:9px;margin-top:18px;padding-top:15px;border-top:1px solid var(--line);font-size:10px;line-height:1.6;color:#838ba5}
+.toastregion{position:fixed;right:18px;bottom:18px;z-index:30;display:grid;gap:8px}
+.toast{max-width:340px;background:#1b2031;border:1px solid var(--line);border-radius:12px;padding:12px 15px;box-shadow:0 15px 45px #0006;font-size:12px}
+.toast.bad{border-color:#ff788b66}
+@media(min-width:1000px){.messages{flex:1;min-height:400px;height:auto;max-height:590px}}
+@media(max-width:900px){.shell{padding:0 16px 22px}.grid{grid-template-columns:minmax(0,1fr) 255px}.search{width:120px}}
+@media(max-width:700px){.shell{padding:0 11px 20px}.top{height:68px}.brand{font-size:17px}.logo{width:38px;height:38px}.sub,.privacy{display:none}.hero{display:block;padding:25px 2px 20px}.hero h1{font-size:30px}.tag{display:inline-block;margin-top:15px}.grid{grid-template-columns:1fr}.chat{min-height:0}.panelhead{padding:12px}.roomicon{width:34px;height:34px}.search{width:100px;padding:8px}.messages{height:47vh;min-height:300px;padding:15px 10px}.msg{max-width:96%;gap:7px}.avatar{width:28px;height:28px}.bubble{font-size:13px;padding:10px 12px}.compose{padding:12px}.send{width:44px;padding:0}.send span:last-child{display:none}.field input{padding:12px 40px 12px 12px}.sidebar{order:2}#users{max-height:250px;display:grid;grid-template-columns:1fr 1fr;gap:2px}.footer{flex-direction:column;gap:7px}.login{padding:26px 21px}}
+@media(max-width:380px){.search{width:84px}.headleft{gap:7px}#users{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top">
+<div class="brandrow"><div class="logo">A</div><div><div class="brand">ANON<span>CHAT</span> PRO</div><div class="sub">CONVERSAS EM TEMPO REAL</div></div></div>
+<div class="topright"><div class="pill privacy">◇ Sem cadastro</div><div class="pill" id="connectionPill"><span class="dot"></span><span id="connection">Conectando...</span></div><button class="iconbtn" id="reconnect" aria-label="Reconectar" title="Reconectar">↻</button></div>
+</header>
 <section class="hero"><div><div class="eyebrow">Seu espaço. Sua conversa.</div><h1>Conexões reais, <span>sem complicação.</span></h1><p>Entre na sala pública, conheça pessoas e compartilhe ideias em tempo real.</p></div><div class="tag">✦ Aberto para todos</div></section>
-<main class="grid"><section class="panel chat"><div class="panelhead"><div class="headleft"><div class="roomicon">◉</div><div><h2>Sala principal</h2><p>Conversa pública · Ao vivo</p></div></div><input class="search" id="searchMessages" placeholder="Buscar mensagens..." aria-label="Buscar mensagens"></div><div class="messages" id="messages" aria-live="polite"><div class="welcome" id="welcome"><div class="welcomeicon">✧</div><strong>A conversa começa aqui</strong><p>Entre com um apelido e diga olá para a comunidade.</p></div></div><div class="compose"><form class="formline" id="chatForm"><div class="field"><input id="message" maxlength="500" placeholder="Escreva sua mensagem..." autocomplete="off" disabled aria-label="Mensagem"><button type="button" class="emoji" id="emoji" disabled aria-label="Inserir emoji">☺</button></div><button class="send" id="send" disabled type="submit"><span>➤</span><span>Enviar</span></button></form><div class="composefoot"><span>Enter para enviar · Seja respeitoso</span><span id="charCount">0 / 500</span></div><div class="error" id="chatError"></div></div></section>
-<aside class="panel sidebar"><div class="panelhead"><div class="headleft"><div class="roomicon">♧</div><div><h2>Comunidade</h2><p>Participantes online</p></div></div><div class="count" id="count">0</div></div><div class="usersearch"><input id="searchUsers" placeholder="Buscar participante..." aria-label="Buscar participante"></div><div id="users"><div class="empty">Aguardando participantes...</div></div><div class="divider"></div><div class="info"><strong>✦ Um espaço para todos</strong><p>Converse com respeito. Não compartilhe senhas, endereço, dados financeiros ou informações privadas.</p></div><div class="stats"><div class="stat"><label>Sua sessão</label><b id="sessionTime">00:00</b></div><div class="stat"><label>Status</label><b id="sessionStatus" style="color:#f0c36b">Aguardando</b></div></div></aside></main>
-<footer class="footer"><span>© <span id="year"></span> ANON CHAT PRO · Feito para conectar pessoas.</span><span>Respeito　•　Privacidade　•　Comunidade</span></footer></div>
-<div class="overlay" id="loginOverlay"><form class="login" id="loginForm"><div class="loginlogo">A</div><div class="eyebrow">Bem-vindo ao Anon Chat</div><h2>Entre na conversa.</h2><p>Escolha um apelido e participe da sala pública. Sem cadastro, sem complicação.</p><label class="label" for="nickname">SEU APELIDO</label><input id="nickname" maxlength="20" minlength="2" placeholder="Ex.: visitante123" autocomplete="nickname" required><label class="founder-toggle"><input type="checkbox" id="founderMode"> Entrar como fundador</label><div id="passwordBox" hidden><label class="label" for="founderPassword">SENHA PRIVADA DO FUNDADOR</label><input id="founderPassword" type="password" autocomplete="current-password" placeholder="Digite a senha do fundador"></div><button class="primary" type="submit">Entrar na sala →</button><div class="error" id="loginError" role="alert"></div><div class="login-note"><span>◇</span><span>As mensagens são públicas para quem estiver conectado. Evite compartilhar dados pessoais.</span></div></form></div><div class="toastregion" id="toasts" aria-live="polite"></div>
+<main class="grid">
+<section class="panel chat">
+<div class="panelhead"><div class="headleft"><div class="roomicon">◉</div><div><h2>Sala principal</h2><p>Conversa pública · Ao vivo</p></div></div><input class="search" id="searchMessages" placeholder="Buscar mensagens..." aria-label="Buscar mensagens"></div>
+<div class="messages" id="messages" aria-live="polite"><div class="welcome" id="welcome"><div class="welcomeicon">✧</div><strong>A conversa começa aqui</strong><p>Entre com um apelido e diga olá para a comunidade.</p></div></div>
+<div class="compose"><form class="formline" id="chatForm"><div class="field"><input id="message" maxlength="500" placeholder="Escreva sua mensagem..." autocomplete="off" disabled aria-label="Mensagem"><button type="button" class="emoji" id="emoji" disabled aria-label="Inserir emoji">☺</button></div><button class="send" id="send" disabled type="submit"><span>➤</span><span>Enviar</span></button></form><div class="composefoot"><span>Enter para enviar · Seja respeitoso</span><span id="charCount">0 / 500</span></div><div class="error" id="chatError"></div></div>
+</section>
+<aside class="panel sidebar">
+<div class="panelhead"><div class="headleft"><div class="roomicon">♧</div><div><h2>Comunidade</h2><p>Participantes online</p></div></div><div class="count" id="count">0</div></div>
+<div class="usersearch"><input id="searchUsers" placeholder="Buscar participante..." aria-label="Buscar participante"></div><div id="users"><div class="empty">Aguardando participantes...</div></div><div class="divider"></div>
+<div class="info"><strong>✦ Um espaço para todos</strong><p>Converse com respeito. Não compartilhe senhas, endereço, dados financeiros ou informações privadas.</p></div>
+<div class="stats"><div class="stat"><label>Sua sessão</label><b id="sessionTime">00:00</b></div><div class="stat"><label>Status</label><b id="sessionStatus" style="color:#f0c36b">Aguardando</b></div></div>
+</aside>
+</main>
+<footer class="footer"><span>© <span id="year"></span> ANON CHAT PRO · Feito para conectar pessoas.</span><span>Respeito　•　Privacidade　•　Comunidade</span></footer>
+</div>
+<div class="overlay" id="loginOverlay">
+<form class="login" id="loginForm"><div class="loginlogo">A</div><div class="eyebrow">Bem-vindo ao Anon Chat</div><h2>Entre na conversa.</h2><p>Escolha um apelido e participe da sala pública. Sem cadastro, sem complicação.</p>
+<label class="label" for="nickname">SEU APELIDO</label><input id="nickname" maxlength="20" minlength="2" placeholder="Ex.: visitante123" autocomplete="nickname" required>
+<label class="founder-toggle"><input type="checkbox" id="founderMode"> Entrar como fundador</label>
+<div id="passwordBox" hidden><label class="label" for="founderPassword">SENHA PRIVADA DO FUNDADOR</label><input id="founderPassword" type="password" autocomplete="current-password" placeholder="Digite a senha do fundador"></div>
+<button class="primary" type="submit">Entrar na sala →</button><div class="error" id="loginError" role="alert"></div><div class="login-note"><span>◇</span><span>As mensagens são públicas para quem estiver conectado. Evite compartilhar dados pessoais.</span></div>
+</form></div><div class="toastregion" id="toasts" aria-live="polite"></div>
 <script>
-"use strict";const $=id=>document.getElementById(id);let ws=null,myId=null,myName="",isFounder=false,joined=false,retries=0,timer=null,manual=false,usersCache=[],sessionTimer=null,started=0;$("year").textContent=new Date().getFullYear();
+"use strict";
+const $=id=>document.getElementById(id);
+let ws=null,myId=null,myName="",isFounder=false,joined=false,retries=0,timer=null,manual=false,usersCache=[],sessionTimer=null,started=0;
+$("year").textContent=new Date().getFullYear();
 function toast(t,type=""){let e=document.createElement("div");e.className="toast "+(type==="error"?"bad":"");e.textContent=t;$("toasts").append(e);setTimeout(()=>e.remove(),3500)}
 function setConn(t,on=false){$("connection").textContent=t;$("connectionPill").classList.toggle("online",on)}
 function send(d){if(ws&&ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify(d));else toast("Sem conexão com o servidor.","error")}
@@ -22,16 +145,69 @@ function time(t){return new Date(t||Date.now()).toLocaleTimeString("pt-BR",{hour
 function bottom(){$("messages").scrollTop=$("messages").scrollHeight}
 function system(t,at){let e=document.createElement("div");e.className="sys";e.textContent="✦ "+t+" · "+time(at);$("messages").append(e);trim();bottom()}
 function trim(){while($("messages").children.length>250)$("messages").firstElementChild.remove()}
-function addMessage(d){if(!d||typeof d.text!=="string")return;$("welcome")?.remove();let r=document.createElement("article");r.className="msg"+(d.id===myId?" mine":"");r.dataset.search=((d.name||"Visitante")+" "+d.text).toLocaleLowerCase("pt-BR");let a=document.createElement("div");a.className="avatar";a.textContent=(d.name||"?").slice(0,1).toLocaleUpperCase("pt-BR");let c=document.createElement("div");c.className="content";let m=document.createElement("div");m.className="meta";let n=document.createElement("span");n.className="name";n.textContent=d.name||"Visitante";m.append(n);if(d.isFounder){let b=document.createElement("span");b.className="badge";b.textContent="FUNDADOR";m.append(b)}let tm=document.createElement("time");tm.className="time";tm.textContent=time(d.time);m.append(tm);let b=document.createElement("div");b.className="bubble";b.textContent=d.text;c.append(m,b);r.append(a,c);$("messages").append(r);trim();applySearch();bottom()}
+function addMessage(d){
+ if(!d||typeof d.text!=="string")return;
+ $("welcome")?.remove();
+ let r=document.createElement("article");r.className="msg"+(d.id===myId?" mine":"");r.dataset.search=((d.name||"Visitante")+" "+d.text).toLocaleLowerCase("pt-BR");
+ let a=document.createElement("div");a.className="avatar";a.textContent=(d.name||"?").slice(0,1).toLocaleUpperCase("pt-BR");
+ let c=document.createElement("div");c.className="content";let m=document.createElement("div");m.className="meta";
+ let n=document.createElement("span");n.className="name";n.textContent=d.name||"Visitante";m.append(n);
+ if(d.isFounder){let b=document.createElement("span");b.className="badge";b.textContent="FUNDADOR";m.append(b)}
+ let tm=document.createElement("time");tm.className="time";tm.textContent=time(d.time);m.append(tm);
+ let b=document.createElement("div");b.className="bubble";b.textContent=d.text;c.append(m,b);r.append(a,c);$("messages").append(r);trim();applySearch();bottom()
+}
 function applySearch(){let q=$("searchMessages").value.trim().toLocaleLowerCase("pt-BR");$("messages").querySelectorAll(".msg").forEach(e=>e.hidden=!!q&&!e.dataset.search.includes(q))}
-function renderUsers(users){usersCache=Array.isArray(users)?users:[];$("count").textContent=usersCache.length;$("users").replaceChildren();let q=$("searchUsers").value.trim().toLocaleLowerCase("pt-BR"),list=usersCache.filter(u=>(u.name||"").toLocaleLowerCase("pt-BR").includes(q));if(!list.length){let e=document.createElement("div");e.className="empty";e.textContent=usersCache.length?"Nenhum participante encontrado.":"Ninguém online no momento.";$("users").append(e);return}for(let u of list){let r=document.createElement("div");r.className="userrow";let a=document.createElement("div");a.className="uavatar";a.textContent=(u.name||"?").slice(0,1).toLocaleUpperCase("pt-BR");let i=document.createElement("div");i.className="uinfo";let n=document.createElement("div");n.className="uname";n.textContent=u.name;let s=document.createElement("div");s.className="ustatus";s.textContent=u.isFounder?"Fundador do chat":u.id===myId?"Sua sessão":"Online agora";i.append(n,s);r.append(a,i);if(u.id===myId){let y=document.createElement("span");y.className="you";y.textContent="VOCÊ";r.append(y)}else if(isFounder&&!u.isFounder){let k=document.createElement("button");k.className="kick";k.textContent="Expulsar";k.type="button";k.onclick=()=>{if(confirm("Expulsar "+u.name+" do chat?"))send({type:"kick",name:u.name})};r.append(k)}$("users").append(r)}}
-function setJoined(v){joined=v;$("message").disabled=!v;$("send").disabled=!v;$("emoji").disabled=!v;$("sessionStatus").textContent=v?"Conectado":"Aguardando";$("sessionStatus").style.color=v?"var(--green)":"#f0c36b";if(v){started=Date.now();clearInterval(sessionTimer);sessionTimer=setInterval(()=>{let s=Math.floor((Date.now()-started)/1000);$("sessionTime").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")},1000)}}
-function connect(){clearTimeout(timer);if(ws&&(ws.readyState===1||ws.readyState===0))return;setConn("Conectando...");try{ws=new WebSocket((location.protocol==="https:"?"wss:":"ws:")+"//"+location.host)}catch{setConn("Offline");retry();return}ws.onopen=()=>{retries=0;setConn("Conectado",true);if(myName)send({type:"join",name:myName,founderPassword:isFounder?$("founderPassword").value:""})};ws.onmessage=e=>{let d;try{d=JSON.parse(e.data)}catch{return}if(d.type==="joined"){myId=d.id;myName=d.name;isFounder=!!d.isFounder;setJoined(true);$("loginOverlay").hidden=true;$("loginError").textContent="";renderUsers(usersCache);toast(isFounder?"Acesso de fundador ativado.":"Você entrou no chat.");$("message").focus()}else if(d.type==="message")addMessage(d);else if(d.type==="system")system(d.text,d.time);else if(d.type==="users")renderUsers(d.users);else if(d.type==="error"){ $("loginError").textContent=d.text;toast(d.text,"error")}else if(d.type==="admin_action")toast(d.text);else if(d.type==="kicked"){toast(d.text,"error");myName="";isFounder=false;setJoined(false);$("loginOverlay").hidden=false;$("nickname").value="";$("founderMode").checked=false;$("passwordBox").hidden=true;$("founderPassword").value="";try{ws.close()}catch{}}};ws.onclose=()=>{setJoined(false);isFounder=false;$("loginOverlay").hidden=false;setConn("Reconectando...");if(!manual)retry()};ws.onerror=()=>setConn("Falha na conexão")}
+function renderUsers(users){
+ usersCache=Array.isArray(users)?users:[];$("count").textContent=usersCache.length;$("users").replaceChildren();
+ let q=$("searchUsers").value.trim().toLocaleLowerCase("pt-BR"),list=usersCache.filter(u=>(u.name||"").toLocaleLowerCase("pt-BR").includes(q));
+ if(!list.length){let e=document.createElement("div");e.className="empty";e.textContent=usersCache.length?"Nenhum participante encontrado.":"Ninguém online no momento.";$("users").append(e);return}
+ for(let u of list){
+  let r=document.createElement("div");r.className="userrow";let a=document.createElement("div");a.className="uavatar";a.textContent=(u.name||"?").slice(0,1).toLocaleUpperCase("pt-BR");
+  let i=document.createElement("div");i.className="uinfo";let n=document.createElement("div");n.className="uname";n.textContent=u.name;let s=document.createElement("div");s.className="ustatus";s.textContent=u.isFounder?"Fundador do chat":u.id===myId?"Sua sessão":"Online agora";i.append(n,s);r.append(a,i);
+  if(u.id===myId){let y=document.createElement("span");y.className="you";y.textContent="VOCÊ";r.append(y)}
+  else if(isFounder&&!u.isFounder){let k=document.createElement("button");k.className="kick";k.textContent="Expulsar";k.type="button";k.onclick=()=>{if(confirm("Expulsar "+u.name+" do chat?"))send({type:"kick",name:u.name})};r.append(k)}
+  $("users").append(r)
+ }
+}
+function setJoined(v){
+ joined=v;$("message").disabled=!v;$("send").disabled=!v;$("emoji").disabled=!v;
+ $("sessionStatus").textContent=v?"Conectado":"Aguardando";$("sessionStatus").style.color=v?"var(--green)":"#f0c36b";
+ if(v){started=Date.now();clearInterval(sessionTimer);sessionTimer=setInterval(()=>{let s=Math.floor((Date.now()-started)/1000);$("sessionTime").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")},1000)}
+}
+function connect(){
+ clearTimeout(timer);if(ws&&(ws.readyState===1||ws.readyState===0))return;setConn("Conectando...");
+ try{ws=new WebSocket((location.protocol==="https:"?"wss:":"ws:")+"//"+location.host)}catch{setConn("Offline");retry();return}
+ ws.onopen=()=>{retries=0;setConn("Conectado",true);if(myName)send({type:"join",name:myName,founderPassword:isFounder?$("founderPassword").value:""})};
+ ws.onmessage=e=>{
+  let d;try{d=JSON.parse(e.data)}catch{return}
+  if(d.type==="joined"){myId=d.id;myName=d.name;isFounder=!!d.isFounder;setJoined(true);$("loginOverlay").hidden=true;$("loginError").textContent="";renderUsers(usersCache);toast(isFounder?"Acesso de fundador ativado.":"Você entrou no chat.");$("message").focus()}
+  else if(d.type==="message")addMessage(d);
+  else if(d.type==="system")system(d.text,d.time);
+  else if(d.type==="users")renderUsers(d.users);
+  else if(d.type==="error"){$("loginError").textContent=d.text;toast(d.text,"error")}
+  else if(d.type==="admin_action")toast(d.text);
+  else if(d.type==="kicked"){toast(d.text,"error");myName="";isFounder=false;setJoined(false);$("loginOverlay").hidden=false;$("nickname").value="";$("founderMode").checked=false;$("passwordBox").hidden=true;$("founderPassword").value="";try{ws.close()}catch{}}
+ };
+ ws.onclose=()=>{setJoined(false);isFounder=false;$("loginOverlay").hidden=false;setConn("Reconectando...");if(!manual)retry()};
+ ws.onerror=()=>setConn("Falha na conexão")
+}
 function retry(){clearTimeout(timer);retries++;timer=setTimeout(()=>{if(!manual)connect()},Math.min(15000,800*Math.pow(1.7,retries)))}
 $("founderMode").onchange=()=>{$("passwordBox").hidden=!$("founderMode").checked;if($("founderMode").checked)$("nickname").value="fundador";else $("founderPassword").value=""};
-$("loginForm").onsubmit=e=>{e.preventDefault();myName=$("nickname").value.trim().replace(/\s+/g," ");isFounder=$("founderMode").checked;if(myName.length<2||myName.length>20){$("loginError").textContent="Use um apelido de 2 a 20 caracteres.";return}if(isFounder&&!$("founderPassword").value){$("loginError").textContent="Digite a senha do fundador.";return}if(ws&&ws.readyState===1)send({type:"join",name:myName,founderPassword:isFounder?$("founderPassword").value:""});else{$("loginError").textContent="Conectando ao servidor; tente novamente.";connect()}};
+$("loginForm").onsubmit=e=>{
+ e.preventDefault();myName=$("nickname").value.trim().replace(/\s+/g," ");isFounder=$("founderMode").checked;
+ if(myName.length<2||myName.length>20){$("loginError").textContent="Use um apelido de 2 a 20 caracteres.";return}
+ if(isFounder&&!$("founderPassword").value){$("loginError").textContent="Digite a senha do fundador.";return}
+ if(ws&&ws.readyState===1)send({type:"join",name:myName,founderPassword:isFounder?$("founderPassword").value:""});
+ else{$("loginError").textContent="Conectando ao servidor; tente novamente.";connect()}
+};
 $("chatForm").onsubmit=e=>{e.preventDefault();let text=$("message").value.trim();if(!text||!joined)return;if(text.length>500){$("chatError").textContent="Máximo de 500 caracteres.";return}send({type:"message",text});$("message").value="";$("charCount").textContent="0 / 500";$("chatError").textContent=""};
-$("message").oninput=()=>{$("charCount").textContent=$("message").value.length+" / 500"};$("searchMessages").oninput=applySearch;$("searchUsers").oninput=()=>renderUsers(usersCache);
+$("message").oninput=()=>{$("charCount").textContent=$("message").value.length+" / 500"};
+$("searchMessages").oninput=applySearch;$("searchUsers").oninput=()=>renderUsers(usersCache);
 $("emoji").onclick=()=>{let a=["😀","😂","😍","😎","🤔","🔥","❤️","👏","✨","👋","💜","🙌"],v=prompt("Escolha um emoji pelo número:\n"+a.map((x,i)=>(i+1)+". "+x).join("   ")),n=Number(v);if(Number.isInteger(n)&&n>0&&n<=a.length){$("message").value+=a[n-1];$("message").dispatchEvent(new Event("input"))}};
-$("reconnect").onclick=()=>{manual=true;clearTimeout(timer);try{ws?.close()}catch{}ws=null;manual=false;retries=0;connect();toast("Reconectando...")};window.addEventListener("online",()=>{if(!ws||ws.readyState===3)connect()});window.addEventListener("beforeunload",()=>{manual=true;clearTimeout(timer);clearInterval(sessionTimer);ws?.close()});connect();
-</script></body></html>
+$("reconnect").onclick=()=>{manual=true;clearTimeout(timer);try{ws?.close()}catch{}ws=null;manual=false;retries=0;connect();toast("Reconectando...")};
+window.addEventListener("online",()=>{if(!ws||ws.readyState===3)connect()});
+window.addEventListener("beforeunload",()=>{manual=true;clearTimeout(timer);clearInterval(sessionTimer);ws?.close()});
+connect();
+</script>
+</body>
+</html>
