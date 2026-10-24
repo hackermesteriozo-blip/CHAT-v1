@@ -1,0 +1,1166 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="ANON CHAT PRO — converse anonimamente em tempo real.">
+  <title>ANON CHAT PRO | Comunidade</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b14;
+      --panel: #101625;
+      --panel2: #151d2e;
+      --border: rgba(159, 174, 213, .15);
+      --text: #f4f6ff;
+      --muted: #8995ad;
+      --purple: #9674ff;
+      --cyan: #57e5ff;
+      --green: #5af0ad;
+      --red: #ff6d8d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 12% 0%, #7451ff22, transparent 42%),
+        radial-gradient(ellipse at 100% 30%, #39c9ff0e, transparent 35%),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    button:focus-visible, input:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .app { max-width: 1450px; margin: auto; padding: 22px; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 19px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #101625d9;
+      backdrop-filter: blur(16px);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 15px;
+      font-size: 24px;
+      background: linear-gradient(135deg, #9873ff, #4dcff5);
+      box-shadow: 0 0 30px #8663ff35;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font: 700 19px "Space Grotesk", sans-serif;
+    }
+
+    .brand h1 span { color: #ae9aff; }
+    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
+
+    .top-actions { display: flex; align-items: center; gap: 13px; }
+
+    .connection {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #748097;
+    }
+
+    .dot.online { background: var(--green); box-shadow: 0 0 12px #5af0ad77; }
+    .dot.loading { background: #ffcf69; }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 15px;
+      color: var(--text);
+      background: #1b2437;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: transform .2s, filter .2s;
+    }
+
+    .button:hover { filter: brightness(1.13); transform: translateY(-1px); }
+
+    .button.primary {
+      color: white;
+      font-weight: 700;
+      border-color: transparent;
+      background: linear-gradient(110deg, #8058ed, #526ff1);
+      box-shadow: 0 7px 22px #7658ed24;
+    }
+
+    .button.danger {
+      color: #ff9db1;
+      border-color: #ff6d8d32;
+      background: #ff6d8d0e;
+    }
+
+    .button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin: 29px 4px 23px;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .hero h2 {
+      margin: 10px 0;
+      font: 700 clamp(27px, 4vw, 39px) "Space Grotesk", sans-serif;
+      letter-spacing: -1.3px;
+    }
+
+    .hero p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+
+    .hero-badge {
+      padding: 11px 14px;
+      color: #c7b9ff;
+      border: 1px solid #9674ff30;
+      border-radius: 12px;
+      background: #9674ff0c;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 19px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      background: #101625e8;
+      box-shadow: 0 18px 70px #00000018;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 70px;
+      padding: 15px 19px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title { display: flex; align-items: center; gap: 11px; }
+    .panel-symbol { font-size: 21px; }
+    .panel-title h3 { margin: 0; font-size: 13px; }
+    .panel-title p { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+
+    .count {
+      min-width: 29px;
+      padding: 6px 9px;
+      border: 1px solid #9674ff2b;
+      border-radius: 9px;
+      background: #9674ff14;
+      color: #c8baff;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .chat { display: flex; flex-direction: column; }
+
+    .toolbar { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+
+    .search, .message-input, .field input {
+      width: 100%;
+      min-width: 0;
+      padding: 12px 14px;
+      color: var(--text);
+      background: #090e19;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .search { font-size: 12px; }
+    .search:focus, .message-input:focus, .field input:focus { border-color: #9674ff88; }
+
+    .messages {
+      min-height: 370px;
+      max-height: 570px;
+      overflow-y: auto;
+      padding: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .messages::-webkit-scrollbar, .participants::-webkit-scrollbar { width: 5px; }
+    .messages::-webkit-scrollbar-thumb, .participants::-webkit-scrollbar-thumb {
+      background: #ffffff20;
+      border-radius: 8px;
+    }
+
+    .welcome {
+      padding: 32px 15px;
+      margin: 5px 0 20px;
+      text-align: center;
+      border: 1px dashed #9674ff3c;
+      border-radius: 17px;
+      background: linear-gradient(130deg, #9674ff0b, #57e5ff06);
+    }
+
+    .welcome .emoji { font-size: 34px; }
+    .welcome h3 { margin: 13px 0 8px; font-size: 15px; }
+    .welcome p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.9; }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin-bottom: 19px;
+      animation: appear .2s ease;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, #805de8, #3286b9);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .message-body { min-width: 0; flex: 1; }
+    .message-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 2px 0 7px; }
+    .message-name { font-size: 12px; font-weight: 800; }
+    .time { color: #73809a; font-size: 10px; }
+
+    .founder-tag {
+      padding: 3px 6px;
+      color: #cbbdff;
+      border: 1px solid #9674ff30;
+      border-radius: 5px;
+      background: #9674ff13;
+      font-size: 9px;
+    }
+
+    .bubble {
+      width: fit-content;
+      max-width: 100%;
+      padding: 11px 13px;
+      color: #e0e6f6;
+      background: #ffffff08;
+      border: 1px solid #ffffff0a;
+      border-radius: 4px 13px 13px 13px;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    .message.system { justify-content: center; margin: 16px 0; }
+
+    .system-bubble {
+      max-width: 100%;
+      padding: 8px 12px;
+      color: #a2adc4;
+      background: #ffffff04;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 11px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .composer { padding: 15px; border-top: 1px solid var(--border); }
+
+    .composer-row { display: flex; align-items: center; gap: 9px; }
+    .message-input { font-size: 13px; }
+    .composer-note { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; color: #6e7a92; font-size: 10px; }
+
+    .sidebar { display: flex; flex-direction: column; gap: 18px; }
+    .participants { max-height: 350px; overflow-y: auto; padding: 11px; }
+
+    .participant {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 7px;
+      border-bottom: 1px solid #ffffff08;
+      border-radius: 9px;
+    }
+
+    .participant:last-child { border-bottom: 0; }
+    .participant .avatar { width: 32px; height: 32px; border-radius: 10px; }
+    .participant-info { min-width: 0; flex: 1; }
+    .participant-name { overflow-wrap: anywhere; font-size: 11px; font-weight: 700; }
+    .participant-state { display: flex; align-items: center; gap: 5px; margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .participant-state .dot { width: 6px; height: 6px; }
+    .kick-button { padding: 7px 8px; font-size: 10px; }
+
+    .empty { padding: 24px 10px; color: var(--muted); font-size: 12px; line-height: 1.8; text-align: center; }
+
+    .info-content { padding: 18px; }
+    .info-row { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 18px; }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-icon { display: grid; place-items: center; width: 35px; height: 35px; flex-shrink: 0; border-radius: 11px; background: #9674ff15; }
+    .info-row h4 { margin: 2px 0 5px; font-size: 12px; }
+    .info-row p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+
+    footer { padding: 25px 5px 8px; color: #68748b; text-align: center; font-size: 11px; line-height: 1.9; }
+    footer strong { color: #ad9aff; }
+
+    .overlay {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: #03050cd9;
+      backdrop-filter: blur(13px);
+    }
+
+    .overlay.hidden { display: none; }
+
+    .modal {
+      width: min(100%, 430px);
+      padding: 28px;
+      border: 1px solid #9674ff3c;
+      border-radius: 24px;
+      background: #101625;
+      box-shadow: 0 25px 100px #0009;
+      animation: appear .25s ease;
+    }
+
+    .modal-logo {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 20px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, #9873ff, #4dcff5);
+      font-size: 27px;
+    }
+
+    .modal h2 { margin: 10px 0; font: 700 27px "Space Grotesk", sans-serif; }
+    .modal > p { margin: 0 0 22px; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .field { display: block; margin-bottom: 16px; }
+    .field span { display: block; margin-bottom: 8px; color: #bbc4d7; font-size: 11px; font-weight: 700; }
+    .field input { font-size: 13px; }
+    .modal .button { width: 100%; padding: 13px; }
+    .modal-note { margin-top: 16px; color: #75819a; font-size: 10px; line-height: 1.8; text-align: center; }
+
+    .toast {
+      position: fixed;
+      z-index: 20;
+      right: 20px;
+      bottom: 20px;
+      max-width: min(390px, calc(100vw - 40px));
+      padding: 13px 17px;
+      color: var(--text);
+      background: #192135;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      box-shadow: 0 12px 40px #0007;
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: .2s;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .app { padding: 15px; }
+      .layout { grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; }
+    }
+
+    @media (max-width: 700px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero-badge { display: none; }
+      .chat { min-height: 0; }
+      .messages { min-height: 300px; max-height: 55vh; }
+      .participants { max-height: 250px; }
+    }
+
+    @media (max-width: 460px) {
+      .app { padding: 10px; }
+      .topbar { padding: 12px; }
+      .logo { width: 39px; height: 39px; border-radius: 12px; }
+      .brand { gap: 9px; }
+      .brand h1 { font-size: 15px; }
+      .brand p { font-size: 9px; }
+      .top-actions { gap: 8px; }
+      .connection { display: none; }
+      .top-actions .button { padding: 9px 10px; font-size: 10px; }
+      .hero { margin: 22px 3px; }
+      .hero h2 { font-size: 27px; }
+      .panel-head { padding: 13px; }
+      .messages { padding: 14px 12px; }
+      .composer { padding: 11px; }
+      .composer-row { gap: 7px; }
+      .composer-row .button { padding: 12px; }
+      .modal { padding: 23px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">✦</div>
+        <div>
+          <h1>ANON CHAT <span>PRO</span></h1>
+          <p>Conexões anônimas em tempo real</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="connection">
+          <span id="statusDot" class="dot"></span>
+          <span id="statusText">Desconectado</span>
+        </div>
+        <button id="changeNameButton" class="button" type="button">Entrar no chat</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">✧ SEU ESPAÇO. SUA CONVERSA.</div>
+        <h2>Converse sem complicação.</h2>
+        <p>Conheça pessoas, troque ideias e participe de conversas em tempo real.</p>
+      </div>
+      <div class="hero-badge">◈ Comunidade online</div>
+    </section>
+
+    <main class="layout">
+      <section class="panel chat">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-symbol">◉</span>
+            <div>
+              <h3>Chat público</h3>
+              <p>Mensagens dos participantes conectados</p>
+            </div>
+          </div>
+          <div id="messageCount" class="count">0</div>
+        </div>
+
+        <div class="toolbar">
+          <input id="searchMessages" class="search" type="search" placeholder="⌕  Buscar mensagens..." aria-label="Buscar mensagens">
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite">
+          <div class="welcome">
+            <div class="emoji">🌌</div>
+            <h3>Bem-vindo ao ANON CHAT PRO</h3>
+            <p>Um lugar para conversar e conhecer pessoas.<br>Escolha um apelido para começar.</p>
+          </div>
+        </div>
+
+        <form id="messageForm" class="composer">
+          <div class="composer-row">
+            <input
+              id="messageInput"
+              class="message-input"
+              type="text"
+              maxlength="500"
+              placeholder="Entre no chat para enviar mensagens..."
+              autocomplete="off"
+              aria-label="Escreva sua mensagem"
+              disabled
+            >
+            <button id="sendButton" class="button primary" type="submit" disabled>Enviar ↗</button>
+          </div>
+          <div class="composer-note">
+            <span>💬 Respeite todos os participantes.</span>
+            <span id="charCount">0/500</span>
+          </div>
+        </form>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-symbol">♙</span>
+              <div>
+                <h3>Participantes</h3>
+                <p>Quem está online agora</p>
+              </div>
+            </div>
+            <div id="userCount" class="count">0</div>
+          </div>
+          <div id="participants" class="participants">
+            <div class="empty">Os participantes conectados aparecerão aqui.</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span class="panel-symbol">✧</span>
+              <div>
+                <h3>Sobre o chat</h3>
+                <p>Informações da comunidade</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-content">
+            <div class="info-row">
+              <div class="info-icon">⚡</div>
+              <div>
+                <h4>Tempo real</h4>
+                <p>Mensagens transmitidas aos participantes conectados.</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-icon">🎭</div>
+              <div>
+                <h4>Apelido público</h4>
+                <p>Use um apelido e evite compartilhar dados pessoais.</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-icon">🛡️</div>
+              <div>
+                <h4>Convivência</h4>
+                <p>Não envie spam, ameaças ou conteúdo que exponha outras pessoas.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <footer>
+      <strong>ANON CHAT PRO</strong> · Chat comunitário em tempo real.<br>
+      Converse com responsabilidade e proteja suas informações pessoais.
+    </footer>
+  </div>
+
+  <div id="joinOverlay" class="overlay">
+    <form id="joinForm" class="modal">
+      <div class="modal-logo">✦</div>
+      <div class="eyebrow">ACESSO À COMUNIDADE</div>
+      <h2>Entre na conversa.</h2>
+      <p>Escolha como deseja aparecer para os outros participantes.</p>
+
+      <label class="field">
+        <span>Seu apelido</span>
+        <input id="nickname" type="text" minlength="2" maxlength="20" placeholder="Ex.: Anônimo123" autocomplete="nickname" required>
+      </label>
+
+      <label class="field">
+        <span>Senha do fundador (opcional)</span>
+        <input id="founderPassword" type="password" maxlength="128" placeholder="Deixe vazio se não for fundador" autocomplete="current-password">
+      </label>
+
+      <button id="joinButton" class="button primary" type="submit">Entrar no chat →</button>
+      <div class="modal-note">
+        A senha do fundador é validada pelo servidor.<br>
+        Não utilize senhas de outras contas.
+      </div>
+    </form>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = (id) => document.getElementById(id);
+
+      const el = {
+        statusDot: $("statusDot"),
+        statusText: $("statusText"),
+        changeNameButton: $("changeNameButton"),
+        joinOverlay: $("joinOverlay"),
+        joinForm: $("joinForm"),
+        nickname: $("nickname"),
+        founderPassword: $("founderPassword"),
+        joinButton: $("joinButton"),
+        messageForm: $("messageForm"),
+        messageInput: $("messageInput"),
+        sendButton: $("sendButton"),
+        messages: $("messages"),
+        participants: $("participants"),
+        userCount: $("userCount"),
+        messageCount: $("messageCount"),
+        charCount: $("charCount"),
+        searchMessages: $("searchMessages"),
+        toast: $("toast")
+      };
+
+      const state = {
+        socket: null,
+        name: "",
+        id: "",
+        isFounder: false,
+        joined: false,
+        users: [],
+        totalMessages: 0,
+        history: [],
+        search: "",
+        toastTimer: null,
+        manuallyClosed: false,
+        connectionAttempt: 0
+      };
+
+      function toast(message) {
+        el.toast.textContent = String(message);
+        el.toast.classList.add("show");
+
+        clearTimeout(state.toastTimer);
+        state.toastTimer = setTimeout(() => {
+          el.toast.classList.remove("show");
+        }, 3500);
+      }
+
+      function setStatus(text, mode = "") {
+        el.statusText.textContent = text;
+        el.statusDot.className = "dot" + (mode ? " " + mode : "");
+      }
+
+      function setJoined(value) {
+        state.joined = value;
+        el.messageInput.disabled = !value;
+        el.sendButton.disabled = !value;
+        el.messageInput.placeholder = value
+          ? "Digite sua mensagem..."
+          : "Entre no chat para enviar mensagens...";
+
+        el.changeNameButton.textContent = value
+          ? "Sair / trocar nome"
+          : "Entrar no chat";
+      }
+
+      function clean(value, max = 500) {
+        return String(value ?? "").slice(0, max);
+      }
+
+      function getTime(value) {
+        let date;
+
+        if (typeof value === "number") {
+          date = new Date(value);
+        } else if (value) {
+          date = new Date(value);
+        } else {
+          date = new Date();
+        }
+
+        if (Number.isNaN(date.getTime())) {
+          const raw = String(value || "");
+          return /^\d{1,2}:\d{2}$/.test(raw) ? raw : "--:--";
+        }
+
+        return date.toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+      }
+
+      function scrollBottom() {
+        el.messages.scrollTop = el.messages.scrollHeight;
+      }
+
+      function removeWelcome() {
+        el.messages.querySelector(".welcome")?.remove();
+      }
+
+      function addSystemMessage(text, time) {
+        removeWelcome();
+
+        const row = document.createElement("div");
+        row.className = "message system";
+
+        const bubble = document.createElement("div");
+        bubble.className = "system-bubble";
+        bubble.textContent = "✧ " + clean(text) + " · " + getTime(time);
+
+        row.appendChild(bubble);
+        el.messages.appendChild(row);
+
+        state.history.push({
+          element: row,
+          text: String(text).toLocaleLowerCase("pt-BR")
+        });
+
+        applySearch();
+        scrollBottom();
+      }
+
+      function addMessage(data) {
+        removeWelcome();
+
+        const name = clean(data.name || "Anônimo", 20);
+        const text = clean(data.text, 500);
+        const founder = Boolean(data.isFounder);
+
+        const row = document.createElement("div");
+        row.className = "message";
+
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.textContent = Array.from(name)[0]?.toUpperCase() || "?";
+
+        const body = document.createElement("div");
+        body.className = "message-body";
+
+        const meta = document.createElement("div");
+        meta.className = "message-meta";
+
+        const nameElement = document.createElement("span");
+        nameElement.className = "message-name";
+        nameElement.textContent = name;
+        meta.appendChild(nameElement);
+
+        if (founder) {
+          const badge = document.createElement("span");
+          badge.className = "founder-tag";
+          badge.textContent = "FUNDADOR";
+          meta.appendChild(badge);
+        }
+
+        const time = document.createElement("span");
+        time.className = "time";
+        time.textContent = getTime(data.time);
+        meta.appendChild(time);
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = text;
+
+        body.append(meta, bubble);
+        row.append(avatar, body);
+        el.messages.appendChild(row);
+
+        state.history.push({
+          element: row,
+          text: (name + " " + text).toLocaleLowerCase("pt-BR")
+        });
+
+        state.totalMessages++;
+        el.messageCount.textContent = String(state.totalMessages);
+
+        applySearch();
+        scrollBottom();
+      }
+
+      function applySearch() {
+        const query = state.search.trim().toLocaleLowerCase("pt-BR");
+
+        state.history.forEach((item) => {
+          item.element.style.display =
+            !query || item.text.includes(query) ? "" : "none";
+        });
+      }
+
+      function renderUsers(users) {
+        state.users = Array.isArray(users) ? users : [];
+        el.userCount.textContent = String(state.users.length);
+        el.participants.replaceChildren();
+
+        if (state.users.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = "Ninguém conectado no momento.";
+          el.participants.appendChild(empty);
+          return;
+        }
+
+        state.users.forEach((user) => {
+          const name = clean(user.name || "Anônimo", 20);
+          const founder = Boolean(user.isFounder);
+
+          const row = document.createElement("div");
+          row.className = "participant";
+
+          const avatar = document.createElement("div");
+          avatar.className = "avatar";
+          avatar.textContent = Array.from(name)[0]?.toUpperCase() || "?";
+
+          const info = document.createElement("div");
+          info.className = "participant-info";
+
+          const username = document.createElement("div");
+          username.className = "participant-name";
+          username.textContent = name;
+
+          const status = document.createElement("div");
+          status.className = "participant-state";
+
+          const dot = document.createElement("span");
+          dot.className = "dot online";
+
+          status.append(
+            dot,
+            document.createTextNode(founder ? "Fundador" : "Online")
+          );
+
+          info.append(username, status);
+          row.append(avatar, info);
+
+          if (
+            state.isFounder &&
+            user.id &&
+            user.id !== state.id &&
+            !founder
+          ) {
+            const kick = document.createElement("button");
+            kick.type = "button";
+            kick.className = "button danger kick-button";
+            kick.textContent = "Remover";
+
+            kick.addEventListener("click", () => {
+              if (window.confirm("Deseja remover " + name + " do chat?")) {
+                sendPacket({ type: "kick", name });
+              }
+            });
+
+            row.appendChild(kick);
+          }
+
+          el.participants.appendChild(row);
+        });
+      }
+
+      function sendPacket(data) {
+        const socket = state.socket;
+
+        if (!socket || socket.readyState !== WebSocket.OPEN) {
+          toast("Você está desconectado. Entre novamente no chat.");
+          return false;
+        }
+
+        try {
+          socket.send(JSON.stringify(data));
+          return true;
+        } catch {
+          toast("Não foi possível enviar a solicitação.");
+          return false;
+        }
+      }
+
+      function handlePacket(data) {
+        if (!data || typeof data !== "object") return;
+
+        switch (data.type) {
+          case "joined":
+            state.id = clean(data.id, 200);
+            state.name = clean(data.name || state.name, 20);
+            state.isFounder = Boolean(data.isFounder);
+
+            setJoined(true);
+            el.joinOverlay.classList.add("hidden");
+            el.nickname.value = state.name;
+            el.founderPassword.value = "";
+            el.joinButton.disabled = false;
+            el.joinButton.textContent = "Entrar no chat →";
+
+            setStatus("Conectado", "online");
+            toast(state.isFounder
+              ? "Acesso de fundador confirmado."
+              : "Você entrou no chat!");
+
+            el.messageInput.focus();
+            break;
+
+          case "message":
+            addMessage(data);
+            break;
+
+          case "system":
+            addSystemMessage(data.text || "Evento do chat.", data.time);
+            break;
+
+          case "users":
+            renderUsers(data.users);
+            break;
+
+          case "error":
+            toast(clean(data.text || "O servidor informou um erro.", 300));
+            el.joinButton.disabled = false;
+            el.joinButton.textContent = "Entrar no chat →";
+            break;
+
+          case "admin_action":
+            toast(clean(data.text || "Ação administrativa realizada.", 300));
+            break;
+
+          case "kicked":
+            toast(clean(data.text || "Você foi removido do chat.", 300));
+            state.manuallyClosed = true;
+            setJoined(false);
+            state.isFounder = false;
+
+            if (state.socket) state.socket.close();
+
+            el.joinOverlay.classList.remove("hidden");
+            el.joinButton.disabled = false;
+            el.joinButton.textContent = "Entrar no chat →";
+            break;
+
+          default:
+            console.debug("Mensagem desconhecida:", data.type);
+        }
+      }
+
+      function socketUrl() {
+        const protocol = location.protocol === "https:" ? "wss:" : "ws:";
+        return protocol + "//" + location.host;
+      }
+
+      function connect(name, password) {
+        if (!("WebSocket" in window)) {
+          toast("Seu navegador não suporta WebSocket.");
+          return;
+        }
+
+        if (!location.host) {
+          toast("Abra o site usando HTTP ou HTTPS.");
+          return;
+        }
+
+        if (state.socket) {
+          const oldSocket = state.socket;
+          state.socket = null;
+
+          if (
+            oldSocket.readyState === WebSocket.OPEN ||
+            oldSocket.readyState === WebSocket.CONNECTING
+          ) {
+            oldSocket.close();
+          }
+        }
+
+        const attempt = ++state.connectionAttempt;
+
+        state.manuallyClosed = false;
+        state.name = name;
+        state.id = "";
+        state.isFounder = false;
+
+        setJoined(false);
+        setStatus("Conectando...", "loading");
+
+        el.joinButton.disabled = true;
+        el.joinButton.textContent = "Conectando...";
+
+        let socket;
+
+        try {
+          socket = new WebSocket(socketUrl());
+          state.socket = socket;
+        } catch {
+          setStatus("Falha na conexão");
+          el.joinButton.disabled = false;
+          el.joinButton.textContent = "Entrar no chat →";
+          toast("Não foi possível conectar ao servidor.");
+          return;
+        }
+
+        socket.addEventListener("open", () => {
+          if (state.socket !== socket || attempt !== state.connectionAttempt) return;
+
+          setStatus("Validando acesso...", "loading");
+
+          const packet = { type: "join", name };
+
+          if (password) packet.founderPassword = password;
+
+          try {
+            socket.send(JSON.stringify(packet));
+          } catch {
+            toast("Falha ao enviar os dados de entrada.");
+            socket.close();
+          }
+        });
+
+        socket.addEventListener("message", (event) => {
+          if (state.socket !== socket || attempt !== state.connectionAttempt) return;
+
+          try {
+            handlePacket(JSON.parse(event.data));
+          } catch {
+            console.warn("O servidor enviou dados inválidos.");
+          }
+        });
+
+        socket.addEventListener("error", () => {
+          if (state.socket !== socket || attempt !== state.connectionAttempt) return;
+          setStatus("Erro de conexão");
+        });
+
+        socket.addEventListener("close", () => {
+          if (state.socket !== socket || attempt !== state.connectionAttempt) return;
+
+          setJoined(false);
+          setStatus("Desconectado");
+
+          el.joinButton.disabled = false;
+          el.joinButton.textContent = "Entrar no chat →";
+
+          if (!state.manuallyClosed) {
+            toast("Conexão encerrada. Entre novamente para continuar.");
+          }
+        });
+      }
+
+      el.joinForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = el.nickname.value.trim();
+        const password = el.founderPassword.value;
+
+        if (name.length < 2 || name.length > 20) {
+          toast("O apelido deve ter entre 2 e 20 caracteres.");
+          el.nickname.focus();
+          return;
+        }
+
+        if (!/^[\p{L}\p{N}_ -]+$/u.test(name)) {
+          toast("Use apenas letras, números, espaços, _ ou - no apelido.");
+          el.nickname.focus();
+          return;
+        }
+
+        connect(name, password);
+      });
+
+      el.changeNameButton.addEventListener("click", () => {
+        if (state.joined) {
+          state.manuallyClosed = true;
+          state.connectionAttempt++;
+
+          const socket = state.socket;
+          state.socket = null;
+
+          if (socket) socket.close();
+
+          setJoined(false);
+          state.isFounder = false;
+          el.founderPassword.value = "";
+          el.joinOverlay.classList.remove("hidden");
+          el.joinButton.disabled = false;
+          el.joinButton.textContent = "Entrar no chat →";
+          el.nickname.value = state.name;
+          el.nickname.focus();
+        } else {
+          el.joinOverlay.classList.remove("hidden");
+          el.nickname.focus();
+        }
+      });
+
+      el.messageForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const text = el.messageInput.value.trim();
+
+        if (!text) return;
+
+        if (!state.joined) {
+          toast("Entre no chat antes de enviar mensagens.");
+          return;
+        }
+
+        if (text.length > 500) {
+          toast("A mensagem ultrapassa 500 caracteres.");
+          return;
+        }
+
+        if (sendPacket({ type: "message", text })) {
+          el.messageInput.value = "";
+          el.charCount.textContent = "0/500";
+          el.messageInput.focus();
+        }
+      });
+
+      el.messageInput.addEventListener("input", () => {
+        el.charCount.textContent = el.messageInput.value.length + "/500";
+      });
+
+      el.searchMessages.addEventListener("input", () => {
+        state.search = el.searchMessages.value;
+        applySearch();
+      });
+
+      window.addEventListener("beforeunload", () => {
+        state.manuallyClosed = true;
+        if (state.socket) state.socket.close();
+      });
+
+      setJoined(false);
+      setStatus("Desconectado");
+    })();
+  </script>
+</body>
+</html>
