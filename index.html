@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Entre no Anon Chat e converse publicamente em tempo real.">
+  <title>ANON CHAT — Conversas públicas</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b14;
+      --panel: #111625;
+      --panel2: #171e30;
+      --border: #273047;
+      --text: #f2f5ff;
+      --muted: #929db5;
+      --accent: #8b5cf6;
+      --green: #35d69a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at top, #1b1740 0, transparent 48%),
+        var(--bg);
+      color: var(--text);
+      font: 15px/1.5 system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    button, input { font: inherit; }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      color: white;
+      background: linear-gradient(120deg, #7c3aed, #4f46e5);
+      border-radius: 12px;
+      padding: 12px 17px;
+      font-weight: 700;
+    }
+
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    input {
+      min-width: 0;
+      width: 100%;
+      padding: 13px;
+      color: var(--text);
+      background: #0b1020;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+    }
+
+    input:focus { border-color: var(--accent); }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 17px 5%;
+      border-bottom: 1px solid var(--border);
+      background: #090d17dd;
+    }
+
+    .brand { font-size: 20px; font-weight: 900; letter-spacing: 1px; }
+    .brand span { color: #a78bfa; }
+    .status { color: var(--muted); font-size: 12px; }
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-right: 6px;
+    }
+
+    main { max-width: 1150px; margin: 36px auto; padding: 0 16px; }
+
+    .hero { text-align: center; margin-bottom: 27px; }
+    .hero h1 { font-size: clamp(28px, 5vw, 44px); margin: 0 0 8px; }
+    .hero p { color: var(--muted); margin: 0; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 16px;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      background: #111625ee;
+      border-radius: 18px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .panel-head {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .panel-head strong { font-size: 14px; }
+
+    #messages {
+      height: 420px;
+      overflow-y: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .welcome {
+      margin: auto;
+      text-align: center;
+      color: var(--muted);
+      max-width: 300px;
+    }
+
+    .welcome .symbol { font-size: 40px; margin-bottom: 10px; }
+
+    .msg {
+      max-width: 90%;
+      overflow-wrap: anywhere;
+      align-self: flex-start;
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      padding: 10px 13px;
+      border-radius: 5px 14px 14px 14px;
+    }
+
+    .msg.mine {
+      align-self: flex-end;
+      background: #32265b;
+      border-color: #59409a;
+      border-radius: 14px 5px 14px 14px;
+    }
+
+    .msg-name { font-size: 12px; color: #c4b5fd; font-weight: 800; }
+    .msg-text { white-space: pre-wrap; margin-top: 4px; }
+    .msg-time { color: var(--muted); font-size: 10px; text-align: right; margin-top: 4px; }
+    .system { color: var(--muted); font-size: 12px; text-align: center; }
+
+    .composer {
+      padding: 14px;
+      display: flex;
+      gap: 9px;
+      border-top: 1px solid var(--border);
+    }
+
+    .composer button { padding-inline: 20px; }
+
+    #users { padding: 10px 14px; }
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 0;
+      border-bottom: 1px solid #222a3d;
+      overflow-wrap: anywhere;
+    }
+
+    .avatar {
+      width: 32px; height: 32px;
+      flex-shrink: 0;
+      display: grid; place-items: center;
+      border-radius: 10px;
+      background: #302354;
+      color: #c4b5fd;
+      font-weight: 800;
+    }
+
+    .muted { color: var(--muted); font-size: 12px; }
+    .sidebar-note { padding: 15px; color: var(--muted); font-size: 12px; }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: #050711eF;
+      backdrop-filter: blur(9px);
+    }
+
+    .login {
+      width: min(420px, 100%);
+      padding: 28px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 20px 80px #0008;
+    }
+
+    .login h2 { margin: 0 0 8px; font-size: 27px; }
+    .login p { color: var(--muted); font-size: 14px; }
+    .login input { margin: 10px 0; }
+    .login button { width: 100%; margin-top: 8px; }
+    #loginError, #error { color: #fca5a5; font-size: 12px; margin-top: 8px; }
+    footer { text-align: center; color: var(--muted); font-size: 12px; padding: 25px; }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 720px) {
+      main { margin-top: 23px; }
+      .layout { grid-template-columns: 1fr; }
+      #messages { height: 52vh; min-height: 300px; }
+      .sidebar { order: 2; }
+      .hero h1 { font-size: 30px; }
+      .topbar { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">ANON<span>CHAT</span></div>
+    <div class="status"><span class="dot"></span><span id="connection">Conectando...</span></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Converse sem complicação.</h1>
+      <p>Entre no chat público e conheça pessoas em tempo real.</p>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <strong>💬 Conversa pública</strong>
+          <span class="muted">Mensagens em tempo real</span>
+        </div>
+
+        <div id="messages" aria-live="polite">
+          <div class="welcome" id="welcome">
+            <div class="symbol">🌐</div>
+            <strong>Um espaço para conversar</strong>
+            <p>Escolha um apelido para começar.</p>
+          </div>
+        </div>
+
+        <form class="composer" id="chatForm">
+          <input id="messageInput" maxlength="500"
+            placeholder="Digite sua mensagem..."
+            aria-label="Sua mensagem" autocomplete="off" disabled>
+          <button id="sendButton" disabled>Enviar ➤</button>
+        </form>
+        <div id="error" role="status" style="padding:0 14px 12px"></div>
+      </section>
+
+      <aside class="panel sidebar">
+        <div class="panel-head">
+          <strong>👥 Pessoas online</strong>
+          <span id="count" class="muted">0</span>
+        </div>
+        <div id="users">
+          <div class="muted">Aguardando conexão...</div>
+        </div>
+        <div class="sidebar-note">
+          Respeite as outras pessoas. Não compartilhe senhas, endereço ou informações pessoais.
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>ANON CHAT · Converse com respeito e responsabilidade.</footer>
+
+  <div class="overlay" id="loginOverlay">
+    <form class="login" id="loginForm">
+      <div class="brand">ANON<span>CHAT</span></div>
+      <h2>Entre na conversa</h2>
+      <p>Escolha um apelido e participe do chat público. Não é necessário criar uma conta.</p>
+      <label for="nickname" class="muted">Seu apelido</label>
+      <input id="nickname" maxlength="20" minlength="2"
+        placeholder="Ex.: visitante123" required autocomplete="nickname">
+      <button id="enterButton">Entrar no chat →</button>
+      <div id="loginError" role="alert"></div>
+      <p>As mensagens são públicas para quem estiver conectado.</p>
+    </form>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    let ws = null;
+    let myId = null;
+    let myName = "";
+    let joined = false;
+    let reconnectTimer = null;
+
+    function setConnection(text) {
+      $("connection").textContent = text;
+    }
+
+    function showError(text) {
+      $("error").textContent = text || "";
+    }
+
+    function addSystem(text) {
+      const el = document.createElement("div");
+      el.className = "system";
+      el.textContent = text;
+      $("messages").appendChild(el);
+      scrollBottom();
+    }
+
+    function addMessage(data) {
+      const el = document.createElement("article");
+      el.className = "msg" + (data.id === myId ? " mine" : "");
+
+      const name = document.createElement("div");
+      name.className = "msg-name";
+      name.textContent = data.name;
+
+      const body = document.createElement("div");
+      body.className = "msg-text";
+      body.textContent = data.text;
+
+      const time = document.createElement("div");
+      time.className = "msg-time";
+      time.textContent = new Date(data.time).toLocaleTimeString(
+        "pt-BR", { hour: "2-digit", minute: "2-digit" }
+      );
+
+      el.append(name, body, time);
+      $("messages").appendChild(el);
+      scrollBottom();
+    }
+
+    function scrollBottom() {
+      $("messages").scrollTop = $("messages").scrollHeight;
+    }
+
+    function renderUsers(users) {
+      $("count").textContent = users.length;
+      $("users").replaceChildren();
+
+      if (!users.length) {
+        const empty = document.createElement("div");
+        empty.className = "muted";
+        empty.textContent = "Ninguém online no momento.";
+        $("users").appendChild(empty);
+        return;
+      }
+
+      for (const user of users) {
+        const row = document.createElement("div");
+        row.className = "user";
+
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.textContent = user.name.slice(0, 1).toUpperCase();
+
+        const info = document.createElement("div");
+        info.style.minWidth = "0";
+
+        const name = document.createElement("div");
+        name.textContent = user.name;
+
+        const status = document.createElement("div");
+        status.className = "muted";
+        status.textContent = user.id === myId ? "Você" : "Online";
+
+        info.append(name, status);
+        row.append(avatar, info);
+        $("users").appendChild(row);
+      }
+    }
+
+    function connect() {
+      clearTimeout(reconnectTimer);
+
+      const protocol = location.protocol === "https:" ? "wss:" : "ws:";
+      ws = new WebSocket(`${protocol}//${location.host}`);
+
+      setConnection("Conectando...");
+
+      ws.addEventListener("open", () => {
+        setConnection("Conectado");
+        if (myName) {
+          ws.send(JSON.stringify({ type: "join", name: myName }));
+        }
+      });
+
+      ws.addEventListener("message", event => {
+        let data;
+
+        try {
+          data = JSON.parse(event.data);
+        } catch {
+          return;
+        }
+
+        if (data.type === "joined") {
+          myId = data.id;
+          joined = true;
+          $("loginOverlay").hidden = true;
+          $("messageInput").disabled = false;
+          $("sendButton").disabled = false;
+          $("messageInput").focus();
+          $("welcome")?.remove();
+          $("loginError").textContent = "";
+          showError("");
+        }
+
+        if (data.type === "message") addMessage(data);
+        if (data.type === "system") addSystem(data.text);
+        if (data.type === "users") renderUsers(data.users);
+        if (data.type === "error") {
+          if (!joined) $("loginError").textContent = data.text;
+          else showError(data.text);
+        }
+      });
+
+      ws.addEventListener("close", () => {
+        joined = false;
+        $("messageInput").disabled = true;
+        $("sendButton").disabled = true;
+        $("loginOverlay").hidden = false;
+        setConnection("Desconectado");
+        reconnectTimer = setTimeout(connect, 2500);
+      });
+
+      ws.addEventListener("error", () => {
+        setConnection("Falha na conexão");
+      });
+    }
+
+    $("loginForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const name = $("nickname").value.trim();
+
+      if (name.length < 2 || name.length > 20) {
+        $("loginError").textContent = "Digite um apelido de 2 a 20 caracteres.";
+        return;
+      }
+
+      myName = name;
+      $("loginError").textContent = "";
+
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: "join", name: myName }));
+      } else {
+        $("loginError").textContent = "Conectando ao servidor. Tente novamente em instantes.";
+      }
+    });
+
+    $("chatForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const input = $("messageInput");
+      const text = input.value.trim();
+
+      if (!text || !joined || !ws || ws.readyState !== WebSocket.OPEN) {
+        return;
+      }
+
+      if (text.length > 500) {
+        showError("Máximo de 500 caracteres.");
+        return;
+      }
+
+      ws.send(JSON.stringify({ type: "message", text }));
+      input.value = "";
+      showError("");
+      input.focus();
+    });
+
+    connect();
+  </script>
+</body>
+</html>
